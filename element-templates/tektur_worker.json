@@ -1,0 +1,1173 @@
+[
+	{
+		"name": "http-request",
+		"id": "tektur.http-request",
+		"appliesTo": [
+			"bpmn:ServiceTask"
+		],
+		"entriesVisible": {
+			"multiInstance-loopCardinality": true,
+			"parameterType-text": true,
+			"parameterType": true,
+			"parameterType-script": true,
+			"parameterType-map": true,
+			"_all": false,
+			"outputs": true,
+			"parameterType-list": true,
+			"parameterName": true,
+			"inputs": true,
+			"multiInstance-elementVariable": true,
+			"multiInstance-collection": true
+		},
+		"properties": [
+			{
+				"binding": {
+					"name": "camunda:type",
+					"type": "property"
+				},
+				"type": "Hidden",
+				"value": "external"
+			},
+			{
+				"binding": {
+					"name": "camunda:topic",
+					"type": "property"
+				},
+				"label": "Topic",
+				"type": "String",
+				"description": "Task implementation to be executed",
+				"value": "http_request"
+			},
+			{
+				"binding": {
+					"name": "camunda:asyncBefore",
+					"type": "property"
+				},
+				"type": "Hidden",
+				"value": true
+			},
+			{
+				"binding": {
+					"name": "camunda:asyncAfter",
+					"type": "property"
+				},
+				"type": "Hidden",
+				"value": true
+			},
+			{
+				"label": "method",
+				"type": "Dropdown",
+				"value": "get",
+				"editable": true,
+				"binding": {
+					"type": "camunda:inputParameter",
+					"name": "method"
+				},
+				"description": "HTTP method",
+				"constraints": {
+					
+				},
+				"choices": [
+					{
+						"name": "GET",
+						"value": "get"
+					},
+					{
+						"name": "POST",
+						"value": "post"
+					},
+					{
+						"name": "PUT",
+						"value": "put"
+					},
+					{
+						"name": "DELETE",
+						"value": "delete"
+					}
+				]
+			},
+			{
+				"label": "host",
+				"type": "String",
+				"value": "",
+				"editable": true,
+				"binding": {
+					"type": "camunda:inputParameter",
+					"name": "host"
+				},
+				"description": "host of the webservice",
+				"constraints": {
+					"notEmpty": true
+				}
+			},
+			{
+				"label": "port",
+				"type": "String",
+				"value": "",
+				"editable": true,
+				"binding": {
+					"type": "camunda:inputParameter",
+					"name": "port"
+				},
+				"description": "Port to use on the http server, defaults to 8000",
+				"constraints": {
+					
+				}
+			},
+			{
+				"label": "endpoint",
+				"type": "String",
+				"value": "",
+				"editable": true,
+				"binding": {
+					"type": "camunda:inputParameter",
+					"name": "endpoint"
+				},
+				"description": "Path to endpoint without host and port part, e.g. \"/v1/documents\"",
+				"constraints": {
+					"notEmpty": true
+				}
+			},
+			{
+				"label": "queryParameters",
+				"type": "String",
+				"value": "",
+				"editable": true,
+				"binding": {
+					"type": "camunda:inputParameter",
+					"name": "queryParameters"
+				},
+				"description": "Query parameters - These must be defined as Map in the \"Input/Output\" tab. If you need to pass multiple values for the same parameter, name each element with a unique suffix in brackets (i.e. foo[1], foo[2] ...). The actual indexes do not influence the order in which parameters are sent to the server.",
+				"constraints": {
+					
+				}
+			},
+			{
+				"label": "contentType",
+				"type": "Dropdown",
+				"value": "text/plain",
+				"editable": true,
+				"binding": {
+					"type": "camunda:inputParameter",
+					"name": "contentType"
+				},
+				"description": "Content type for request and response",
+				"constraints": {
+					
+				},
+				"choices": [
+					{
+						"name": "(empty)",
+						"value": ""
+					},
+					{
+						"name": "JSON",
+						"value": "application/json"
+					},
+					{
+						"name": "Text",
+						"value": "text/plain"
+					},
+					{
+						"name": "XML",
+						"value": "application/xml"
+					},
+					{
+						"name": "TSV",
+						"value": "text/tab-separated-values"
+					}
+				]
+			},
+			{
+				"label": "requestBody",
+				"type": "String",
+				"value": "",
+				"editable": true,
+				"binding": {
+					"type": "camunda:inputParameter",
+					"name": "requestBody"
+				},
+				"description": "Request body to send, as a string",
+				"constraints": {
+					
+				}
+			},
+			{
+				"label": "requestBodyFilename",
+				"type": "String",
+				"value": "",
+				"editable": true,
+				"binding": {
+					"type": "camunda:inputParameter",
+					"name": "requestBodyFilename"
+				},
+				"description": "Request body to send, as a file",
+				"constraints": {
+					
+				}
+			},
+			{
+				"label": "responseBodyFilename",
+				"type": "String",
+				"value": "",
+				"editable": true,
+				"binding": {
+					"type": "camunda:inputParameter",
+					"name": "responseBodyFilename"
+				},
+				"description": "Name of file to write response to",
+				"constraints": {
+					
+				}
+			}
+		]
+	},
+	{
+		"name": "mail",
+		"id": "tektur.mail",
+		"appliesTo": [
+			"bpmn:ServiceTask"
+		],
+		"entriesVisible": {
+			"multiInstance-loopCardinality": true,
+			"parameterType-text": true,
+			"parameterType": true,
+			"parameterType-script": true,
+			"parameterType-map": true,
+			"_all": false,
+			"outputs": true,
+			"parameterType-list": true,
+			"parameterName": true,
+			"inputs": true,
+			"multiInstance-elementVariable": true,
+			"multiInstance-collection": true
+		},
+		"properties": [
+			{
+				"binding": {
+					"name": "camunda:type",
+					"type": "property"
+				},
+				"type": "Hidden",
+				"value": "external"
+			},
+			{
+				"binding": {
+					"name": "camunda:topic",
+					"type": "property"
+				},
+				"label": "Topic",
+				"type": "String",
+				"description": "Task implementation to be executed",
+				"value": "send_mail"
+			},
+			{
+				"binding": {
+					"name": "camunda:asyncBefore",
+					"type": "property"
+				},
+				"type": "Hidden",
+				"value": true
+			},
+			{
+				"binding": {
+					"name": "camunda:asyncAfter",
+					"type": "property"
+				},
+				"type": "Hidden",
+				"value": true
+			},
+			{
+				"label": "to",
+				"type": "String",
+				"value": "",
+				"editable": true,
+				"binding": {
+					"type": "camunda:inputParameter",
+					"name": "to"
+				},
+				"description": "Recipient address, can be an alias or a complete email address",
+				"constraints": {
+					"notEmpty": true
+				}
+			},
+			{
+				"label": "subject",
+				"type": "String",
+				"value": "",
+				"editable": true,
+				"binding": {
+					"type": "camunda:inputParameter",
+					"name": "subject"
+				},
+				"description": "Subject of the email",
+				"constraints": {
+					"notEmpty": true
+				}
+			},
+			{
+				"label": "body",
+				"type": "Text",
+				"value": "",
+				"editable": true,
+				"binding": {
+					"type": "camunda:inputParameter",
+					"name": "body"
+				},
+				"description": "Email body",
+				"constraints": {
+					"notEmpty": true
+				}
+			},
+			{
+				"label": "attachment",
+				"type": "String",
+				"value": "",
+				"editable": true,
+				"binding": {
+					"type": "camunda:inputParameter",
+					"name": "attachment"
+				},
+				"description": "Name of attachment (file in Workspace). Multiple files can be attached by changing the type of this parameter to have type List in the \"Input/Output\" tab and supplying multiple values there",
+				"constraints": {
+					
+				}
+			}
+		]
+	},
+	{
+		"name": "s3-get",
+		"id": "tektur.s3-get",
+		"appliesTo": [
+			"bpmn:ServiceTask"
+		],
+		"entriesVisible": {
+			"multiInstance-loopCardinality": true,
+			"parameterType-text": true,
+			"parameterType": true,
+			"parameterType-script": true,
+			"parameterType-map": true,
+			"_all": false,
+			"outputs": true,
+			"parameterType-list": true,
+			"parameterName": true,
+			"inputs": true,
+			"multiInstance-elementVariable": true,
+			"multiInstance-collection": true
+		},
+		"properties": [
+			{
+				"binding": {
+					"name": "camunda:type",
+					"type": "property"
+				},
+				"type": "Hidden",
+				"value": "external"
+			},
+			{
+				"binding": {
+					"name": "camunda:topic",
+					"type": "property"
+				},
+				"label": "Topic",
+				"type": "String",
+				"description": "Task implementation to be executed",
+				"value": "s3_get"
+			},
+			{
+				"binding": {
+					"name": "camunda:asyncBefore",
+					"type": "property"
+				},
+				"type": "Hidden",
+				"value": true
+			},
+			{
+				"binding": {
+					"name": "camunda:asyncAfter",
+					"type": "property"
+				},
+				"type": "Hidden",
+				"value": true
+			},
+			{
+				"label": "bucket",
+				"type": "String",
+				"value": "",
+				"editable": true,
+				"binding": {
+					"type": "camunda:inputParameter",
+					"name": "bucket"
+				},
+				"description": "Name of the S3 bucket.",
+				"constraints": {
+					
+				}
+			},
+			{
+				"label": "key",
+				"type": "String",
+				"value": "",
+				"editable": true,
+				"binding": {
+					"type": "camunda:inputParameter",
+					"name": "key"
+				},
+				"description": "Key of object to fetch.",
+				"constraints": {
+					
+				}
+			},
+			{
+				"label": "URL",
+				"type": "String",
+				"value": "",
+				"editable": true,
+				"binding": {
+					"type": "camunda:inputParameter",
+					"name": "url"
+				},
+				"description": "URL of object to fetch (overrides key & bucket)",
+				"constraints": {
+					
+				}
+			},
+			{
+				"label": "filename",
+				"type": "String",
+				"value": "",
+				"editable": true,
+				"binding": {
+					"type": "camunda:inputParameter",
+					"name": "filename"
+				},
+				"description": "Name of the file to fetch object to. The file name is relative to the current local workspace.",
+				"constraints": {
+					
+				}
+			},
+			{
+				"label": "profile",
+				"type": "String",
+				"value": "",
+				"editable": true,
+				"binding": {
+					"type": "camunda:inputParameter",
+					"name": "profile"
+				},
+				"description": "Name of AWS profile to use for credentials and region",
+				"constraints": {
+					
+				}
+			}
+		]
+	},
+	{
+		"name": "s3-list",
+		"id": "tektur.s3-list",
+		"appliesTo": [
+			"bpmn:ServiceTask"
+		],
+		"entriesVisible": {
+			"multiInstance-loopCardinality": true,
+			"parameterType-text": true,
+			"parameterType": true,
+			"parameterType-script": true,
+			"parameterType-map": true,
+			"_all": false,
+			"outputs": true,
+			"parameterType-list": true,
+			"parameterName": true,
+			"inputs": true,
+			"multiInstance-elementVariable": true,
+			"multiInstance-collection": true
+		},
+		"properties": [
+			{
+				"binding": {
+					"name": "camunda:type",
+					"type": "property"
+				},
+				"type": "Hidden",
+				"value": "external"
+			},
+			{
+				"binding": {
+					"name": "camunda:topic",
+					"type": "property"
+				},
+				"label": "Topic",
+				"type": "String",
+				"description": "Task implementation to be executed",
+				"value": "s3_list"
+			},
+			{
+				"binding": {
+					"name": "camunda:asyncBefore",
+					"type": "property"
+				},
+				"type": "Hidden",
+				"value": true
+			},
+			{
+				"binding": {
+					"name": "camunda:asyncAfter",
+					"type": "property"
+				},
+				"type": "Hidden",
+				"value": true
+			},
+			{
+				"label": "bucket",
+				"type": "String",
+				"value": "",
+				"editable": true,
+				"binding": {
+					"type": "camunda:inputParameter",
+					"name": "bucket"
+				},
+				"description": "Name of the S3 bucket.",
+				"constraints": {
+					
+				}
+			},
+			{
+				"label": "key",
+				"type": "String",
+				"value": "",
+				"editable": true,
+				"binding": {
+					"type": "camunda:inputParameter",
+					"name": "key"
+				},
+				"description": "Key of files to match, may include * and ? as wildcards",
+				"constraints": {
+					
+				}
+			},
+			{
+				"label": "URL",
+				"type": "String",
+				"value": "",
+				"editable": true,
+				"binding": {
+					"type": "camunda:inputParameter",
+					"name": "url"
+				},
+				"description": "URL of files to match (overrides key & bucket)",
+				"constraints": {
+					
+				}
+			},
+			{
+				"label": "Sort",
+				"type": "Dropdown",
+				"value": "ascending",
+				"editable": true,
+				"binding": {
+					"type": "camunda:inputParameter",
+					"name": "sort"
+				},
+				"description": "Sort order",
+				"constraints": {
+					
+				},
+				"choices": [
+					{
+						"name": "ascending",
+						"value": "ascending"
+					},
+					{
+						"name": "descending",
+						"value": "descending"
+					}
+				]
+			},
+			{
+				"label": "Sort by",
+				"type": "Dropdown",
+				"value": "key",
+				"editable": true,
+				"binding": {
+					"type": "camunda:inputParameter",
+					"name": "sort-by"
+				},
+				"description": "Sort key",
+				"constraints": {
+					
+				},
+				"choices": [
+					{
+						"name": "key",
+						"value": "key"
+					},
+					{
+						"name": "last-modified",
+						"value": "last-modified"
+					}
+				]
+			},
+			{
+				"label": "profile",
+				"type": "String",
+				"value": "",
+				"editable": true,
+				"binding": {
+					"type": "camunda:inputParameter",
+					"name": "profile"
+				},
+				"description": "Name of AWS profile to use for credentials and region",
+				"constraints": {
+					
+				}
+			}
+		]
+	},
+	{
+		"name": "s3-put",
+		"id": "tektur.s3-put",
+		"appliesTo": [
+			"bpmn:ServiceTask"
+		],
+		"entriesVisible": {
+			"multiInstance-loopCardinality": true,
+			"parameterType-text": true,
+			"parameterType": true,
+			"parameterType-script": true,
+			"parameterType-map": true,
+			"_all": false,
+			"outputs": true,
+			"parameterType-list": true,
+			"parameterName": true,
+			"inputs": true,
+			"multiInstance-elementVariable": true,
+			"multiInstance-collection": true
+		},
+		"properties": [
+			{
+				"binding": {
+					"name": "camunda:type",
+					"type": "property"
+				},
+				"type": "Hidden",
+				"value": "external"
+			},
+			{
+				"binding": {
+					"name": "camunda:topic",
+					"type": "property"
+				},
+				"label": "Topic",
+				"type": "String",
+				"description": "Task implementation to be executed",
+				"value": "s3_put"
+			},
+			{
+				"binding": {
+					"name": "camunda:asyncBefore",
+					"type": "property"
+				},
+				"type": "Hidden",
+				"value": true
+			},
+			{
+				"binding": {
+					"name": "camunda:asyncAfter",
+					"type": "property"
+				},
+				"type": "Hidden",
+				"value": true
+			},
+			{
+				"label": "bucket",
+				"type": "String",
+				"value": "",
+				"editable": true,
+				"binding": {
+					"type": "camunda:inputParameter",
+					"name": "bucket"
+				},
+				"description": "Name of the S3 bucket.",
+				"constraints": {
+					
+				}
+			},
+			{
+				"label": "key",
+				"type": "String",
+				"value": "",
+				"editable": true,
+				"binding": {
+					"type": "camunda:inputParameter",
+					"name": "key"
+				},
+				"description": "Key to put object to.",
+				"constraints": {
+					
+				}
+			},
+			{
+				"label": "URL",
+				"type": "String",
+				"value": "",
+				"editable": true,
+				"binding": {
+					"type": "camunda:inputParameter",
+					"name": "url"
+				},
+				"description": "URL of object to put (overrides key & bucket)",
+				"constraints": {
+					
+				}
+			},
+			{
+				"label": "filename",
+				"type": "String",
+				"value": "",
+				"editable": true,
+				"binding": {
+					"type": "camunda:inputParameter",
+					"name": "filename"
+				},
+				"description": "Name of the file to put. The file name is relative to the current local workspace.",
+				"constraints": {
+					"notEmpty": true
+				}
+			},
+			{
+				"label": "profile",
+				"type": "String",
+				"value": "",
+				"editable": true,
+				"binding": {
+					"type": "camunda:inputParameter",
+					"name": "profile"
+				},
+				"description": "Name of AWS profile to use for credentials and region",
+				"constraints": {
+					
+				}
+			}
+		]
+	},
+	{
+		"name": "xslt",
+		"id": "tektur.xslt",
+		"appliesTo": [
+			"bpmn:ServiceTask"
+		],
+		"entriesVisible": {
+			"multiInstance-loopCardinality": true,
+			"parameterType-text": true,
+			"parameterType": true,
+			"parameterType-script": true,
+			"parameterType-map": true,
+			"_all": false,
+			"outputs": true,
+			"parameterType-list": true,
+			"parameterName": true,
+			"inputs": true,
+			"multiInstance-elementVariable": true,
+			"multiInstance-collection": true
+		},
+		"properties": [
+			{
+				"binding": {
+					"name": "camunda:type",
+					"type": "property"
+				},
+				"type": "Hidden",
+				"value": "external"
+			},
+			{
+				"binding": {
+					"name": "camunda:topic",
+					"type": "property"
+				},
+				"label": "Topic",
+				"type": "String",
+				"description": "Task implementation to be executed",
+				"value": "transform_xml"
+			},
+			{
+				"binding": {
+					"name": "camunda:asyncBefore",
+					"type": "property"
+				},
+				"type": "Hidden",
+				"value": true
+			},
+			{
+				"binding": {
+					"name": "camunda:asyncAfter",
+					"type": "property"
+				},
+				"type": "Hidden",
+				"value": true
+			},
+			{
+				"label": "xslt",
+				"type": "Text",
+				"value": "",
+				"editable": true,
+				"binding": {
+					"type": "camunda:inputParameter",
+					"name": "xslt"
+				},
+				"description": "Inline XSLT document to process",
+				"constraints": {
+					
+				}
+			},
+			{
+				"label": "xslt-file",
+				"type": "String",
+				"value": "",
+				"editable": true,
+				"binding": {
+					"type": "camunda:inputParameter",
+					"name": "xslt-file"
+				},
+				"description": "Path to XSLT file to process",
+				"constraints": {
+					
+				}
+			},
+			{
+				"label": "source-file",
+				"type": "String",
+				"value": "",
+				"editable": true,
+				"binding": {
+					"type": "camunda:inputParameter",
+					"name": "source-file"
+				},
+				"description": "Source file to transform",
+				"constraints": {
+					
+				}
+			},
+			{
+				"label": "initial-template",
+				"type": "String",
+				"value": "",
+				"editable": true,
+				"binding": {
+					"type": "camunda:inputParameter",
+					"name": "initial-template"
+				},
+				"description": "Name of initial template to call",
+				"constraints": {
+					
+				}
+			},
+			{
+				"label": "destination-file",
+				"type": "String",
+				"value": "",
+				"editable": true,
+				"binding": {
+					"type": "camunda:inputParameter",
+					"name": "destination-file"
+				},
+				"description": "Destination file to transform to",
+				"constraints": {
+					
+				}
+			},
+			{
+				"label": "destination-serialization-method",
+				"type": "Dropdown",
+				"value": "",
+				"editable": true,
+				"binding": {
+					"type": "camunda:inputParameter",
+					"name": "destination-serialization-method"
+				},
+				"description": "Method to use for serialization to destination-file",
+				"constraints": {
+					
+				},
+				"choices": [
+					{
+						"name": "xml",
+						"value": "xml"
+					},
+					{
+						"name": "text",
+						"value": "text"
+					}
+				]
+			},
+			{
+				"label": "parameters",
+				"type": "String",
+				"value": "",
+				"editable": true,
+				"binding": {
+					"type": "camunda:inputParameter",
+					"name": "parameters"
+				},
+				"description": "Map with transformation parameters",
+				"constraints": {
+					
+				}
+			}
+		]
+	},
+	{
+		"name": "unzip",
+		"id": "tektur.unzip",
+		"appliesTo": [
+			"bpmn:ServiceTask"
+		],
+		"entriesVisible": {
+			"multiInstance-loopCardinality": true,
+			"parameterType-text": true,
+			"parameterType": true,
+			"parameterType-script": true,
+			"parameterType-map": true,
+			"_all": false,
+			"outputs": true,
+			"parameterType-list": true,
+			"parameterName": true,
+			"inputs": true,
+			"multiInstance-elementVariable": true,
+			"multiInstance-collection": true
+		},
+		"properties": [
+			{
+				"binding": {
+					"name": "camunda:type",
+					"type": "property"
+				},
+				"type": "Hidden",
+				"value": "external"
+			},
+			{
+				"binding": {
+					"name": "camunda:topic",
+					"type": "property"
+				},
+				"label": "Topic",
+				"type": "String",
+				"description": "Task implementation to be executed",
+				"value": "file_unzip"
+			},
+			{
+				"binding": {
+					"name": "camunda:asyncBefore",
+					"type": "property"
+				},
+				"type": "Hidden",
+				"value": true
+			},
+			{
+				"binding": {
+					"name": "camunda:asyncAfter",
+					"type": "property"
+				},
+				"type": "Hidden",
+				"value": true
+			},
+			{
+				"label": "ZIP Filename",
+				"type": "String",
+				"value": "",
+				"editable": true,
+				"binding": {
+					"type": "camunda:inputParameter",
+					"name": "zipFilename"
+				},
+				"description": null,
+				"constraints": {
+					
+				}
+			},
+			{
+				"label": "Output Folder",
+				"type": "String",
+				"value": "",
+				"editable": true,
+				"binding": {
+					"type": "camunda:inputParameter",
+					"name": "outputFolder"
+				},
+				"description": "Result will be extracted to the specified folder.",
+				"constraints": {
+					
+				}
+			}
+		]
+	},
+	{
+		"name": "zip",
+		"id": "tektur.zip",
+		"appliesTo": [
+			"bpmn:ServiceTask"
+		],
+		"entriesVisible": {
+			"multiInstance-loopCardinality": true,
+			"parameterType-text": true,
+			"parameterType": true,
+			"parameterType-script": true,
+			"parameterType-map": true,
+			"_all": false,
+			"outputs": true,
+			"parameterType-list": true,
+			"parameterName": true,
+			"inputs": true,
+			"multiInstance-elementVariable": true,
+			"multiInstance-collection": true
+		},
+		"properties": [
+			{
+				"binding": {
+					"name": "camunda:type",
+					"type": "property"
+				},
+				"type": "Hidden",
+				"value": "external"
+			},
+			{
+				"binding": {
+					"name": "camunda:topic",
+					"type": "property"
+				},
+				"label": "Topic",
+				"type": "String",
+				"description": "Task implementation to be executed",
+				"value": "file_zip"
+			},
+			{
+				"binding": {
+					"name": "camunda:asyncBefore",
+					"type": "property"
+				},
+				"type": "Hidden",
+				"value": true
+			},
+			{
+				"binding": {
+					"name": "camunda:asyncAfter",
+					"type": "property"
+				},
+				"type": "Hidden",
+				"value": true
+			},
+			{
+				"label": "ZIP File",
+				"type": "String",
+				"value": "",
+				"editable": true,
+				"binding": {
+					"type": "camunda:inputParameter",
+					"name": "zipFilename"
+				},
+				"description": "Name of ZIP file to create",
+				"constraints": {
+					
+				}
+			},
+			{
+				"label": "Input File Names",
+				"type": "String",
+				"value": "",
+				"editable": true,
+				"binding": {
+					"type": "camunda:inputParameter",
+					"name": "inputFilenames"
+				},
+				"description": "Names of files to put into the archive",
+				"constraints": {
+					
+				}
+			}
+		]
+	},
+	{
+		"name": "exist-load",
+		"id": "tektur.exist-load",
+		"appliesTo": [
+			"bpmn:ServiceTask"
+		],
+		"entriesVisible": {
+			"multiInstance-loopCardinality": true,
+			"parameterType-text": true,
+			"parameterType": true,
+			"parameterType-script": true,
+			"parameterType-map": true,
+			"_all": false,
+			"outputs": true,
+			"parameterType-list": true,
+			"parameterName": true,
+			"inputs": true,
+			"multiInstance-elementVariable": true,
+			"multiInstance-collection": true
+		},
+		"properties": [
+			{
+				"binding": {
+					"name": "camunda:type",
+					"type": "property"
+				},
+				"type": "Hidden",
+				"value": "external"
+			},
+			{
+				"binding": {
+					"name": "camunda:topic",
+					"type": "property"
+				},
+				"label": "Topic",
+				"type": "String",
+				"description": "Task implementation to be executed",
+				"value": "exist_load"
+			},
+			{
+				"binding": {
+					"name": "camunda:asyncBefore",
+					"type": "property"
+				},
+				"type": "Hidden",
+				"value": true
+			},
+			{
+				"binding": {
+					"name": "camunda:asyncAfter",
+					"type": "property"
+				},
+				"type": "Hidden",
+				"value": true
+			},
+			{
+				"label": "Input Folder",
+				"type": "String",
+				"value": "",
+				"editable": true,
+				"binding": {
+					"type": "camunda:inputParameter",
+					"name": "inputFolder"
+				},
+				"description": "Name of the folder containing the input XML",
+				"constraints": {
+					
+				}
+			},
+			{
+				"label": "DB Path",
+				"type": "String",
+				"value": "",
+				"editable": true,
+				"binding": {
+					"type": "camunda:inputParameter",
+					"name": "dbPath"
+				},
+				"description": "Path in the eXist-db where to store the input data",
+				"constraints": {
+					
+				}
+			}
+		]
+	}
+]
