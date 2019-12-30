@@ -876,30 +876,6 @@
 				}
 			},
 			{
-				"label": "destination-serialization-method",
-				"type": "Dropdown",
-				"value": "",
-				"editable": true,
-				"binding": {
-					"type": "camunda:inputParameter",
-					"name": "destination-serialization-method"
-				},
-				"description": "Method to use for serialization to destination-file",
-				"constraints": {
-					
-				},
-				"choices": [
-					{
-						"name": "xml",
-						"value": "xml"
-					},
-					{
-						"name": "text",
-						"value": "text"
-					}
-				]
-			},
-			{
 				"label": "parameters",
 				"type": "String",
 				"value": "",

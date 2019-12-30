@@ -1,4 +1,4 @@
-def http_request(variables):
+def http_request(process_dir, variables):
     print ("http request called!")
     print ("method: "+variables["method"]["value"])
     print ("host: "+variables["host"]["value"])
@@ -9,4 +9,4 @@ def http_request(variables):
     print ("requestBody: "+variables["requestBody"]["value"])
     print ("requestBodyFilename: "+variables["requestBodyFilename"]["value"])
     print ("responseBodyFilename: "+variables["responseBodyFilename"]["value"])
-    return ""
+    return None
