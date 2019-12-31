@@ -1,6 +1,7 @@
 import os, tempfile
 from subprocess import Popen, PIPE
 from settings import SAXON_JAR
+from errors import TaskError
 
 def transform_xml(process_dir, variables):
     
@@ -36,12 +37,9 @@ def transform_xml(process_dir, variables):
     p = Popen(args, stdin=PIPE, stdout=PIPE, stderr=PIPE)
     output, err = p.communicate()
     if p.returncode == -1:
-        return {"errorMessage" : "XSLT Error!", 
-                "errorDetails" : "Source: "+source_file+" XSLT: "+xslt_file}
+        raise TaskError(b"XSLT Error!", b"Source: "+source_file+" XSLT: "+xslt_file)
     elif len(err) > 0:
-        return {"errorMessage" : "XSLT Error!", 
-                "errorDetails" : err.decode("UTF-8") }
+        raise TaskError(b"XSLT Error!", err)
     else:
         if delete_xslt_file:
             os.unlink(xslt_file)
-        return None

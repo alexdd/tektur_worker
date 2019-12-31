@@ -1,6 +1,10 @@
-import requests, json, time, os, json
+import requests, time, os, json, logging
 from settings import CAMUNDA_SERVER_URL, POLL_INTERVAL, WORKING_DIR, WORKER_ID
 import tasks
+from errors import TaskError
+
+logging.basicConfig(filename="requests.log", format='%(asctime)s - %(message)s')
+log = logging.getLogger('urllib3') 
  
 fetchAndLockPayload = {"workerId": WORKER_ID,
   "maxTasks":1,
@@ -14,6 +18,7 @@ fetchAndLockPayload = {"workerId": WORKER_ID,
 fetch_url = CAMUNDA_SERVER_URL+'engine-rest/external-task/fetchAndLock'
 
 while True: 
+    log.setLevel(logging.INFO)
     try:
         res = requests.post(fetch_url, json=fetchAndLockPayload)
         body = res.text    
@@ -30,24 +35,13 @@ while True:
     processInstanceId = str(response[0]['processInstanceId'])
     tmp_path = os.path.join(WORKING_DIR, processInstanceId)
     os.makedirs(tmp_path, exist_ok=True)
-    error = getattr(tasks, response[0]['topicName'])(tmp_path, 
-                                                      response[0]['variables']) 
-    response = {
-        "workerId": WORKER_ID,   
-    }
-    if not error: 
-        try:
-            complete_url = (CAMUNDA_SERVER_URL + 'engine-rest/external-task/' + taskId + '/complete')
-            complete = requests.post(complete_url, json=response)
-            print('complete status code: ', complete.status_code)
-        except: 
-            print('complete request failed: '+taskId)
-    else:
-        try:
-            failed_url = (CAMUNDA_SERVER_URL + 'engine-rest/external-task/' + taskId + '/failure')
-            response["errorMessage"] = error["errorMessage"]
-            response["errorDetails"] = error["errorDetails"]
-            failed = requests.post(failed_url, json=response)
-            print('failed status code: ', failed.status_code)
-        except: 
-            print('failed request failed: '+taskId)
+    log.setLevel(logging.DEBUG)
+    try:
+        getattr(tasks, response[0]['topicName'])(tmp_path, response[0]['variables']) 
+        complete = requests.post(CAMUNDA_SERVER_URL + 'engine-rest/external-task/' + taskId + '/complete', 
+                                 json = {"workerId": WORKER_ID})
+    except TaskError as te:
+        failed = requests.post(CAMUNDA_SERVER_URL + 'engine-rest/external-task/' + taskId + '/failure',
+                               json = {"workerId": WORKER_ID, 
+                                       "errorMessage" : te.message.decode("UTF-8"), 
+                                       "errorDetails" : te.details.decode("UTF-8") })

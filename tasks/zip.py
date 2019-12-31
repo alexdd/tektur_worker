@@ -1,4 +1,5 @@
 import os, zipfile
+from errors import TaskError
 
 def zipper(dirPath=None, zipFilePath=None, includeDirInZip=True):
 
@@ -34,9 +35,7 @@ def file_zip(process_dir, variables):
         zipper(os.path.join(process_dir, variables["inputFilenames"]["value"]), 
                os.path.join(process_dir, variables["zipFilename"]["value"]))
     except Exception as e:
-        return {"errorMessage" : "ZIP Error!", 
-                "errorDetails" : str(e) }
-    return None
+        raise TaskError(b"ZIP Error!", str(e))
 
 def file_unzip(process_dir, variables):
 
@@ -44,6 +43,4 @@ def file_unzip(process_dir, variables):
         unzipper(os.path.join(process_dir, variables["zipFilename"]["value"]),
                  os.path.join(process_dir, variables["outputFolder"]["value"]))
     except Exception as e:
-        return {"errorMessage" : "UNZIP Error!", 
-                "errorDetails" : str(e) }
-    return None
+        raise TaskError(b"UNZIP Error!",str(e) )
