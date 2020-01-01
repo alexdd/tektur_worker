@@ -419,20 +419,6 @@
 				}
 			},
 			{
-				"label": "URL",
-				"type": "String",
-				"value": "",
-				"editable": true,
-				"binding": {
-					"type": "camunda:inputParameter",
-					"name": "url"
-				},
-				"description": "URL of object to fetch (overrides key & bucket)",
-				"constraints": {
-					
-				}
-			},
-			{
 				"label": "filename",
 				"type": "String",
 				"value": "",
@@ -442,20 +428,6 @@
 					"name": "filename"
 				},
 				"description": "Name of the file to fetch object to. The file name is relative to the current local workspace.",
-				"constraints": {
-					
-				}
-			},
-			{
-				"label": "profile",
-				"type": "String",
-				"value": "",
-				"editable": true,
-				"binding": {
-					"type": "camunda:inputParameter",
-					"name": "profile"
-				},
-				"description": "Name of AWS profile to use for credentials and region",
 				"constraints": {
 					
 				}
@@ -546,20 +518,6 @@
 				}
 			},
 			{
-				"label": "URL",
-				"type": "String",
-				"value": "",
-				"editable": true,
-				"binding": {
-					"type": "camunda:inputParameter",
-					"name": "url"
-				},
-				"description": "URL of files to match (overrides key & bucket)",
-				"constraints": {
-					
-				}
-			},
-			{
 				"label": "Sort",
 				"type": "Dropdown",
 				"value": "ascending",
@@ -606,20 +564,6 @@
 						"value": "last-modified"
 					}
 				]
-			},
-			{
-				"label": "profile",
-				"type": "String",
-				"value": "",
-				"editable": true,
-				"binding": {
-					"type": "camunda:inputParameter",
-					"name": "profile"
-				},
-				"description": "Name of AWS profile to use for credentials and region",
-				"constraints": {
-					
-				}
 			}
 		]
 	},
@@ -707,20 +651,6 @@
 				}
 			},
 			{
-				"label": "URL",
-				"type": "String",
-				"value": "",
-				"editable": true,
-				"binding": {
-					"type": "camunda:inputParameter",
-					"name": "url"
-				},
-				"description": "URL of object to put (overrides key & bucket)",
-				"constraints": {
-					
-				}
-			},
-			{
 				"label": "filename",
 				"type": "String",
 				"value": "",
@@ -732,20 +662,6 @@
 				"description": "Name of the file to put. The file name is relative to the current local workspace.",
 				"constraints": {
 					"notEmpty": true
-				}
-			},
-			{
-				"label": "profile",
-				"type": "String",
-				"value": "",
-				"editable": true,
-				"binding": {
-					"type": "camunda:inputParameter",
-					"name": "profile"
-				},
-				"description": "Name of AWS profile to use for credentials and region",
-				"constraints": {
-					
 				}
 			}
 		]

@@ -43,5 +43,5 @@ while True:
     except TaskError as te:
         failed = requests.post(CAMUNDA_SERVER_URL + 'engine-rest/external-task/' + taskId + '/failure',
                                json = {"workerId": WORKER_ID, 
-                                       "errorMessage" : te.message.decode("UTF-8"), 
-                                       "errorDetails" : te.details.decode("UTF-8") })
+                                       "errorMessage" : te.message, 
+                                       "errorDetails" : te.details})

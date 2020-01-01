@@ -35,7 +35,7 @@ def file_zip(process_dir, variables):
         zipper(os.path.join(process_dir, variables["inputFilenames"]["value"]), 
                os.path.join(process_dir, variables["zipFilename"]["value"]))
     except Exception as e:
-        raise TaskError(b"ZIP Error!", str(e))
+        raise TaskError("ZIP Error!", str(e))
 
 def file_unzip(process_dir, variables):
 
@@ -43,4 +43,4 @@ def file_unzip(process_dir, variables):
         unzipper(os.path.join(process_dir, variables["zipFilename"]["value"]),
                  os.path.join(process_dir, variables["outputFolder"]["value"]))
     except Exception as e:
-        raise TaskError(b"UNZIP Error!",str(e) )
+        raise TaskError("UNZIP Error!",str(e) )

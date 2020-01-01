@@ -29,7 +29,8 @@ def transform_xml(process_dir, variables):
         source_file,
         "-o",
         os.path.join(process_dir, variables["destination-file"]["value"]),
-        xslt_file
+        xslt_file,
+        "workdir="+process_dir
         ]
     for saxon_param_strg in [key+"="+variables["parameters"]["value"][key] 
                              for key in variables["parameters"]["value"].keys()]:
@@ -37,9 +38,9 @@ def transform_xml(process_dir, variables):
     p = Popen(args, stdin=PIPE, stdout=PIPE, stderr=PIPE)
     output, err = p.communicate()
     if p.returncode == -1:
-        raise TaskError(b"XSLT Error!", b"Source: "+source_file+" XSLT: "+xslt_file)
+        raise TaskError("XSLT Error!", "Source: "+source_file+" XSLT: "+xslt_file)
     elif len(err) > 0:
-        raise TaskError(b"XSLT Error!", err)
+        raise TaskError("XSLT Error!", err.decode())
     else:
         if delete_xslt_file:
             os.unlink(xslt_file)
