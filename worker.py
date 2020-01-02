@@ -3,6 +3,19 @@ from settings import CAMUNDA_SERVER_URL, POLL_INTERVAL, WORKING_DIR, WORKER_ID
 import tasks
 from errors import TaskError
 
+"""This worker polls the Camunda BPMN engine for scheduled tasks, which will be 
+executed by the tasks module. Currently the following tasks are available:
+    - aws: S3 list bucket content
+    - aws: S3 put a file into a bucket
+    - aws: S3 get a file from a bucket
+    - exist-db: load xml files ino the db
+    - http: send a get or post request to a webservice
+    - mail: send an email with an attachment
+    - xslt: transform XML using XSLT
+    - zip: zip or extract files
+It may be used e.g. for XML ETL processes ...
+"""
+
 logging.basicConfig(filename="requests.log", format='%(asctime)s - %(message)s')
 log = logging.getLogger('urllib3') 
  
@@ -36,6 +49,7 @@ while True:
     tmp_path = os.path.join(WORKING_DIR, processInstanceId)
     os.makedirs(tmp_path, exist_ok=True)
     log.setLevel(logging.DEBUG)
+    print(response[0]['variables'])
     try:
         getattr(tasks, response[0]['topicName'])(tmp_path, response[0]['variables']) 
         complete = requests.post(CAMUNDA_SERVER_URL + 'engine-rest/external-task/' + taskId + '/complete', 

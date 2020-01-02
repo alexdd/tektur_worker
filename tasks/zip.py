@@ -30,6 +30,16 @@ def unzipper(file, path):
     unzip.extractall(path=path)
     
 def file_zip(process_dir, variables):
+    
+    """This task zips the files referenced by their filname.
+
+    Attributes:
+        process_dir -- the generated working directory of the calling process
+        variables -- a dictonary containing key-value pairs passed from Camunda
+    Camunda Parameters:
+        ["inputFilenames"] -- Space separated list of input filenames
+        ["zipFilename"] -- Filename of the ZIP file
+    """
 
     try:
         zipper(os.path.join(process_dir, variables["inputFilenames"]["value"]), 
@@ -38,6 +48,16 @@ def file_zip(process_dir, variables):
         raise TaskError("ZIP Error!", str(e))
 
 def file_unzip(process_dir, variables):
+
+    """This task unzips the ZIP file referenced by its filname.
+
+    Attributes:
+        process_dir -- the generated working directory of the calling process
+        variables -- a dictonary containing key-value pairs passed from Camunda
+    Camunda Parameters:
+        ["zipFilename"] -- Filename of the ZIP file to be extracted
+        ["outputFolder"] -- Name of the folder to extract the files to
+    """
 
     try:
         unzipper(os.path.join(process_dir, variables["zipFilename"]["value"]),

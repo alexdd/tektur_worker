@@ -516,54 +516,6 @@
 				"constraints": {
 					
 				}
-			},
-			{
-				"label": "Sort",
-				"type": "Dropdown",
-				"value": "ascending",
-				"editable": true,
-				"binding": {
-					"type": "camunda:inputParameter",
-					"name": "sort"
-				},
-				"description": "Sort order",
-				"constraints": {
-					
-				},
-				"choices": [
-					{
-						"name": "ascending",
-						"value": "ascending"
-					},
-					{
-						"name": "descending",
-						"value": "descending"
-					}
-				]
-			},
-			{
-				"label": "Sort by",
-				"type": "Dropdown",
-				"value": "key",
-				"editable": true,
-				"binding": {
-					"type": "camunda:inputParameter",
-					"name": "sort-by"
-				},
-				"description": "Sort key",
-				"constraints": {
-					
-				},
-				"choices": [
-					{
-						"name": "key",
-						"value": "key"
-					},
-					{
-						"name": "last-modified",
-						"value": "last-modified"
-					}
-				]
 			}
 		]
 	},

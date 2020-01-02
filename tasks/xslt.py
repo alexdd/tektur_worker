@@ -5,6 +5,19 @@ from errors import TaskError
 
 def transform_xml(process_dir, variables):
     
+    """This task runs an XSLT transformation calling Saxon via CLI.
+
+    Attributes:
+        process_dir -- the generated working directory of the calling process
+        variables -- a dictonary containing key-value pairs passed from Camunda
+    Camunda Parameters:
+        ["initial-template"] -- The XSLT main template
+        ["xslt-file"] -- The filename of the XSLT transformation file 
+        ["xslt"] -- A string containing the XSLT Transformation instructions
+        ["destination-file"] -- The name of the target file
+        ["parameters"] -- a dictionary containing parameter settings passed to the transformation
+    """
+    
     source_file = os.path.join(process_dir, variables["source-file"]["value"])
     if len(variables["initial-template"]["value"]) > 0:
         initial_template = "-it:"+variables["initial-template"]["value"]
