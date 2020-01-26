@@ -28,7 +28,7 @@ def s3_get(process_dir, variables):
 def s3_list(process_dir, variables):
 
     """This task lists objects contained in a S3 bucket. It return a dictonary 
-       with format {"objects": [list of object names]
+       with format {"objects": "value" : [list of object names]
 
     Attributes:
         process_dir -- the generated working directory of the calling process
@@ -42,8 +42,8 @@ def s3_list(process_dir, variables):
     bucket = s3.Bucket(variables["bucket"]["value"])
     regex = re.compile(variables["key"]["value"])
     try:
-        return {"objects": {"value": json.dumps([bucket.key for bucket in bucket.objects.all() 
-                                                            if re.match(regex, bucket.key)])}}
+        return {"objects": {"value": [bucket.key for bucket in bucket.objects.all() 
+                                                            if re.match(regex, bucket.key)]}}
     except Exception as e:
         raise TaskError("Cannot list S3 objects!", str(e)+": "+str(bucket))
     
