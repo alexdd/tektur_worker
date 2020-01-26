@@ -516,6 +516,20 @@
 				"constraints": {
 					
 				}
+			},
+			{
+				"label": "objects",
+				"type": "String",
+				"value": "",
+				"editable": false,
+				"binding": {
+					"type": "camunda:outputParameter",
+					"source": "${ objects }"
+				},
+				"description": "Result of listing",
+				"constraints": {
+					
+				}
 			}
 		]
 	},

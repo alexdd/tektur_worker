@@ -57,3 +57,4 @@ def transform_xml(process_dir, variables):
     else:
         if delete_xslt_file:
             os.unlink(xslt_file)
+    return {}

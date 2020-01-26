@@ -52,9 +52,10 @@ class CamundaWorker:
             os.makedirs(tmp_path, exist_ok=True)
             log.setLevel(logging.DEBUG)
             try:
-                getattr(tasks, response[0]['topicName'])(tmp_path, response[0]['variables']) 
+                variables = getattr(tasks, response[0]['topicName'])(tmp_path, response[0]['variables']) 
                 complete = requests.post(CAMUNDA_SERVER_URL + 'engine-rest/external-task/' + taskId + '/complete', 
-                                         json = {"workerId": WORKER_ID})
+                                         json = {"workerId": WORKER_ID,
+                                                 "variables": variables})
             except TaskError as te:
                 failed = requests.post(CAMUNDA_SERVER_URL + 'engine-rest/external-task/' + taskId + '/failure',
                                        json = {"workerId": WORKER_ID, 

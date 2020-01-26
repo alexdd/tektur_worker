@@ -31,4 +31,5 @@ def exist_load(process_dir, variables):
         raise TaskError("exist-db load error!", "Input folder: "+input_folder+" XSLT: "+db_path)
     elif len(err) > 0:
         raise TaskError("exist-db load error!", err.decode())
-   
+    return {}
+

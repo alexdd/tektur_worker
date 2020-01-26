@@ -1,4 +1,4 @@
-import os, boto3, re
+import os, boto3, re, json
 from errors import TaskError
 
 def s3_get(process_dir, variables):
@@ -23,10 +23,12 @@ def s3_get(process_dir, variables):
             s3.download_fileobj(bucket, key, f)
     except Exception as e:
         raise TaskError("Cannot get S3 object!", str(e)+": "+bucket+"/"+key)
+    return {}
 
 def s3_list(process_dir, variables):
 
-    """This task lists object contained in a S3 bucket.
+    """This task lists objects contained in a S3 bucket. It return a dictonary 
+       with format {"objects": [list of object names]
 
     Attributes:
         process_dir -- the generated working directory of the calling process
@@ -40,10 +42,10 @@ def s3_list(process_dir, variables):
     bucket = s3.Bucket(variables["bucket"]["value"])
     regex = re.compile(variables["key"]["value"])
     try:
-        matches = [obj_name for obj_name in bucket.objects.all() if re.match(regex, obj_name)]
+        return {"objects": {"value": json.dumps([bucket.key for bucket in bucket.objects.all() 
+                                                            if re.match(regex, bucket.key)])}}
     except Exception as e:
         raise TaskError("Cannot list S3 objects!", str(e)+": "+str(bucket))
-    print("s3 list calles! "+str(matches))
     
 def s3_put(process_dir, variables):
 
@@ -67,3 +69,4 @@ def s3_put(process_dir, variables):
             s3.upload_fileobj(f, bucket, key)
     except Exception as e:
         raise TaskError("Cannot put S3 object!", str(e)+": "+bucket+"/"+key)
+    return {}

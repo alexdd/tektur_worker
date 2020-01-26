@@ -9,3 +9,4 @@ def http_request(process_dir, variables):
     print ("requestBody: "+variables["requestBody"]["value"])
     print ("requestBodyFilename: "+variables["requestBodyFilename"]["value"])
     print ("responseBodyFilename: "+variables["responseBodyFilename"]["value"])
+    return {}
