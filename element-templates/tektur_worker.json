@@ -328,7 +328,21 @@
 					"type": "camunda:inputParameter",
 					"name": "attachment"
 				},
-				"description": "Name of attachment (file in Workspace). Multiple files can be attached by changing the type of this parameter to have type List in the \"Input/Output\" tab and supplying multiple values there",
+				"description": "Name of attachment (file in Workspace).",
+				"constraints": {
+					
+				}
+			},
+			{
+				"label": "Attachment in eMail",
+				"type": "String",
+				"value": "",
+				"editable": true,
+				"binding": {
+					"type": "camunda:inputParameter",
+					"name": "attachedName"
+				},
+				"description": "Name of attachment in the eMail",
 				"constraints": {
 					
 				}
@@ -629,6 +643,30 @@
 				"constraints": {
 					"notEmpty": true
 				}
+			},
+			{
+				"label": "location",
+				"type": "Dropdown",
+				"value": "process",
+				"editable": true,
+				"binding": {
+					"type": "camunda:inputParameter",
+					"name": "location"
+				},
+				"description": "Location of the file to upload",
+				"constraints": {
+					
+				},
+				"choices": [
+					{
+						"name": "process",
+						"value": "process"
+					},
+					{
+						"name": "custom",
+						"value": "custom"
+					}
+				]
 			}
 		]
 	},
@@ -928,18 +966,42 @@
 				}
 			},
 			{
-				"label": "Input File Names",
+				"label": "Input Folder",
 				"type": "String",
 				"value": "",
 				"editable": true,
 				"binding": {
 					"type": "camunda:inputParameter",
-					"name": "inputFilenames"
+					"name": "inputFolder"
 				},
-				"description": "Names of files to put into the archive",
+				"description": "Name of the Folder to be zipped",
 				"constraints": {
 					
 				}
+			},
+			{
+				"label": "Include Parent Directory",
+				"type": "Dropdown",
+				"value": "True",
+				"editable": true,
+				"binding": {
+					"type": "camunda:inputParameter",
+					"name": "includeDir"
+				},
+				"description": "Boolean flag if the parent folder should be included",
+				"constraints": {
+					
+				},
+				"choices": [
+					{
+						"name": "Yes",
+						"value": "True"
+					},
+					{
+						"name": "No",
+						"value": "False"
+					}
+				]
 			}
 		]
 	},

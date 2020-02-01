@@ -19,11 +19,9 @@ def transform_xml(process_dir, variables):
     """
     
     source_file = os.path.join(process_dir, variables["source-file"]["value"])
-    if len(variables["initial-template"]["value"]) > 0:
-        initial_template = "-it:"+variables["initial-template"]["value"]
-    else:
-        initial_template = ""
-    if len(variables["xslt-file"]["value"]) > 0:
+    destination_file = os.path.join(process_dir, variables["destination-file"]["value"])
+    os.makedirs(os.path.split(destination_file)[0], exist_ok=True)
+    if variables["xslt-file"]["value"]:
         xslt_file = os.path.join(process_dir, variables["xslt-file"]["value"])
         delete_xslt_file = False
     else:
@@ -37,17 +35,17 @@ def transform_xml(process_dir, variables):
         "-cp",
         SAXON_JAR,
         "net.sf.saxon.Transform",
-        initial_template,
-        "-s",
-        source_file,
-        "-o",
-        os.path.join(process_dir, variables["destination-file"]["value"]),
-        xslt_file,
-        "workdir="+process_dir
+        "-s:"+source_file,
+        "-o:"+destination_file,
+        "-xsl:"+xslt_file,
         ]
-    for saxon_param_strg in [key+"="+variables["parameters"]["value"][key] 
+    if variables["initial-template"]["value"]:
+        args.append("-it:"+variables["initial-template"]["value"])
+    if variables["parameters"]["value"]:
+        for saxon_param_strg in [key+"="+variables["parameters"]["value"][key] 
                              for key in variables["parameters"]["value"].keys()]:
-        args.append('"'+saxon_param_strg+'"')
+            args.append(saxon_param_strg)
+    args.append("workdir="+process_dir)
     p = Popen(args, stdin=PIPE, stdout=PIPE, stderr=PIPE)
     output, err = p.communicate()
     if p.returncode == -1:

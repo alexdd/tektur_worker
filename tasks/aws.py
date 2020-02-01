@@ -63,6 +63,10 @@ def s3_put(process_dir, variables):
     s3 = boto3.client('s3')
     path = os.path.join(process_dir, variables["filename"]["value"])
     key = variables["key"]["value"]
+    if variables["location"]["value"] == 'process': 
+        path = os.path.join(process_dir, variables["filename"]["value"])
+    else:
+        path = os.path.join(variables["filename"]["value"])
     bucket = variables["bucket"]["value"]
     try:
         with open(path, "rb") as f:

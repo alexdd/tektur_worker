@@ -37,13 +37,15 @@ def file_zip(process_dir, variables):
         process_dir -- the generated working directory of the calling process
         variables -- a dictonary containing key-value pairs passed from Camunda
     Camunda Parameters:
-        ["inputFilenames"] -- Space separated list of input filenames
+        ["inputFolder"] -- The folder to be zipped
         ["zipFilename"] -- Filename of the ZIP file
+        ["includeDir"] -- boolean flag if the parent dir should be included
     """
-
+    
     try:
-        zipper(os.path.join(process_dir, variables["inputFilenames"]["value"]), 
-               os.path.join(process_dir, variables["zipFilename"]["value"]))
+        zipper(os.path.join(process_dir, variables["inputFolder"]["value"]), 
+               os.path.join(process_dir, variables["zipFilename"]["value"]),
+               variables["includeDir"]["value"] == 'True')
     except Exception as e:
         raise TaskError("ZIP Error!", str(e))
     return {}
