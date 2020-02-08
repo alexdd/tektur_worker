@@ -14,15 +14,19 @@ def s3_get(process_dir, variables):
         ["bucket"] -- The name of the S3 bucket
     """
 
+    filename = variables["filename"]["value"]
+    if not filename:
+        raise TaskError("AWS Error! Filename required")
+    
     s3 = boto3.client('s3')
-    path = os.path.join(process_dir, variables["filename"]["value"])
+    path = os.path.join(process_dir, filename)
     key = variables["key"]["value"]
     bucket = variables["bucket"]["value"]
     try:
         with open(path, 'wb') as f:
             s3.download_fileobj(bucket, key, f)
     except Exception as e:
-        raise TaskError("Cannot get S3 object!", str(e)+": "+bucket+"/"+key)
+        raise TaskError("AWS Error! Cannot get S3 object!", str(e)+": "+bucket+"/"+key)
     return {}
 
 def s3_list(process_dir, variables):
@@ -36,6 +40,8 @@ def s3_list(process_dir, variables):
     Camunda Parameters:
         ["bucket"] -- The name of the S3 bucket
         ["key"] -- A regex defining the object names to list 
+        ["objects"] -- Output variable containing the list of 
+                       filenames of the objects to be retrieved       
     """
     
     s3 = boto3.resource('s3')
@@ -45,7 +51,7 @@ def s3_list(process_dir, variables):
         return {"objects": {"value": [bucket.key for bucket in bucket.objects.all() 
                                                             if re.match(regex, bucket.key)]}}
     except Exception as e:
-        raise TaskError("Cannot list S3 objects!", str(e)+": "+str(bucket))
+        raise TaskError("AWS Error! Cannot list S3 objects!", str(e)+": "+str(bucket))
     
 def s3_put(process_dir, variables):
 
@@ -72,5 +78,5 @@ def s3_put(process_dir, variables):
         with open(path, "rb") as f:
             s3.upload_fileobj(f, bucket, key)
     except Exception as e:
-        raise TaskError("Cannot put S3 object!", str(e)+": "+bucket+"/"+key)
+        raise TaskError("AWS Error! Cannot put S3 object!", str(e)+": "+bucket+"/"+key)
     return {}

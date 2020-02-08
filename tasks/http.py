@@ -1,12 +1,58 @@
+import requests, json
+from requests.adapters import HTTPAdapter
+from requests.exceptions import ConnectionError, Timeout
+from settings import HTTP_RETRIES, HTTP_TIMEOUT 
+from errors import TaskError
+
+class URLRunner:
+    
+    def __init__(self, url, method, parameters):
+        self.url = url
+        self.method = method
+        self.response = None
+        
+    def run(self, session):
+        if self.method == "GET":
+            param_string = "?" + "&".join([key+"="+self.parameters[key] 
+                                           for key in self.parameters.keys()])
+            self.response = session.get(self.url + param_string, timeout=HTTP_TIMEOUT) 
+        else:
+            data = json.dumps(self.parameters)           
+            self.response = session.post(self.url, data=data, timeout=HTTP_TIMEOUT) 
+
+class URLAdapter:
+    
+    def __init__(self, url, variables):
+        adapter = HTTPAdapter(max_retries=HTTP_RETRIES)
+        self.session = requests.Session()
+        self.session.mount(url, adapter)
+        self.url = url
+        self.variables = variables
+        self.runner = URLRunner(self.url, 
+                                self.variables["method"]["value"],
+                                self.variables["queryParameters"]["value"])
+        
+    def request(self):
+        try:
+            self.runner.run(self.session)
+        except ConnectionError as ce:
+            raise TaskError("HTTP Error! request url!", str(ce))  
+        except Timeout:
+            raise TaskError("HTTP Error! request timed out url!", self.url) 
+  
 def http_request(process_dir, variables):
+    url = "http://"+ \
+          variables["host"]["value"] + ":" + \
+          variables["port"]["value"] + \
+          variables["endpoint"]["value"]       
+   # adapter = URLAdapter(url, variables)
+    
     print ("http request called!")
     print ("method: "+variables["method"]["value"])
     print ("host: "+variables["host"]["value"])
     print ("port: "+variables["port"]["value"])
     print ("endpoint: "+variables["endpoint"]["value"])
     print ("queryParameters: "+str(variables["queryParameters"]["value"]))
-    print ("contentType: "+variables["contentType"]["value"])
-    print ("requestBody: "+variables["requestBody"]["value"])
-    print ("requestBodyFilename: "+variables["requestBodyFilename"]["value"])
-    print ("responseBodyFilename: "+variables["responseBodyFilename"]["value"])
+    print ("JSONfile: "+variables["JSONfile"]["value"])
+    print ("responseFilename: "+variables["responseFilename"]["value"])
     return {}

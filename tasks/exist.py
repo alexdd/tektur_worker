@@ -17,14 +17,15 @@ def exist_load(process_dir, variables):
     """
     
     input_folder = os.path.join(process_dir, variables["inputFolder"]["value"])
-    db_path = os.path.join(process_dir, variables["dbPath"]["value"])
+    db_path = variables["dbPath"]["value"]
     args = [
         EXIST_DB_CLIENT,
-        "-m",
+        "-c",
         db_path,
         "-p",
         input_folder
         ]    
+    print(" ".join(args))
     p = Popen(args, stdin=PIPE, stdout=PIPE, stderr=PIPE)
     output, err = p.communicate()
     if p.returncode == -1:

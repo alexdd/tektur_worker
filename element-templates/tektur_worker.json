@@ -75,16 +75,8 @@
 					{
 						"name": "POST",
 						"value": "post"
-					},
-					{
-						"name": "PUT",
-						"value": "put"
-					},
-					{
-						"name": "DELETE",
-						"value": "delete"
 					}
-				]
+				] 
 			},
 			{
 				"label": "host",
@@ -142,78 +134,28 @@
 					
 				}
 			},
-			{
-				"label": "contentType",
-				"type": "Dropdown",
-				"value": "text/plain",
-				"editable": true,
-				"binding": {
-					"type": "camunda:inputParameter",
-					"name": "contentType"
-				},
-				"description": "Content type for request and response",
-				"constraints": {
-					
-				},
-				"choices": [
-					{
-						"name": "(empty)",
-						"value": ""
-					},
-					{
-						"name": "JSON",
-						"value": "application/json"
-					},
-					{
-						"name": "Text",
-						"value": "text/plain"
-					},
-					{
-						"name": "XML",
-						"value": "application/xml"
-					},
-					{
-						"name": "TSV",
-						"value": "text/tab-separated-values"
-					}
-				]
-			},
-			{
-				"label": "requestBody",
+			{ 
+				"label": "JSONfile",
 				"type": "String",
 				"value": "",
 				"editable": true,
 				"binding": {
 					"type": "camunda:inputParameter",
-					"name": "requestBody"
+					"name": "JSONfile"
 				},
-				"description": "Request body to send, as a string",
+				"description": "JSON to send, as a file",
 				"constraints": {
 					
 				}
 			},
 			{
-				"label": "requestBodyFilename",
+				"label": "responseFilename",
 				"type": "String",
 				"value": "",
 				"editable": true,
 				"binding": {
 					"type": "camunda:inputParameter",
-					"name": "requestBodyFilename"
-				},
-				"description": "Request body to send, as a file",
-				"constraints": {
-					
-				}
-			},
-			{
-				"label": "responseBodyFilename",
-				"type": "String",
-				"value": "",
-				"editable": true,
-				"binding": {
-					"type": "camunda:inputParameter",
-					"name": "responseBodyFilename"
+					"name": "responseFilename"
 				},
 				"description": "Name of file to write response to",
 				"constraints": {
@@ -805,6 +747,218 @@
 					"name": "parameters"
 				},
 				"description": "Map with transformation parameters",
+				"constraints": {
+					
+				}
+			}
+		]
+	},
+	{
+		"name": "batch-xslt",
+		"id": "tektur.batch_xslt",
+		"appliesTo": [
+			"bpmn:ServiceTask"
+		],
+		"entriesVisible": {
+			"multiInstance-loopCardinality": true,
+			"parameterType-text": true,
+			"parameterType": true,
+			"parameterType-script": true,
+			"parameterType-map": true,
+			"_all": false,
+			"outputs": true,
+			"parameterType-list": true,
+			"parameterName": true,
+			"inputs": true,
+			"multiInstance-elementVariable": true,
+			"multiInstance-collection": true
+		},
+		"properties": [
+			{
+				"binding": {
+					"name": "camunda:type",
+					"type": "property"
+				},
+				"type": "Hidden",
+				"value": "external"
+			},
+			{
+				"binding": {
+					"name": "camunda:topic",
+					"type": "property"
+				},
+				"label": "Topic",
+				"type": "String",
+				"description": "Task implementation to be executed",
+				"value": "batch_transform_xml"
+			},
+			{
+				"binding": {
+					"name": "camunda:asyncBefore",
+					"type": "property"
+				},
+				"type": "Hidden",
+				"value": true
+			},
+			{
+				"binding": {
+					"name": "camunda:asyncAfter",
+					"type": "property"
+				},
+				"type": "Hidden",
+				"value": true
+			},
+			{
+				"label": "xslt-folder",
+				"type": "String",
+				"value": "",
+				"editable": true,
+				"binding": {
+					"type": "camunda:inputParameter",
+					"name": "xslt-folder"
+				},
+				"description": "Name of the folder containing XSLT files to process in sort order",
+				"constraints": {
+					
+				}
+			},
+			{
+				"label": "input-folder",
+				"type": "String",
+				"value": "",
+				"editable": true,
+				"binding": {
+					"type": "camunda:inputParameter",
+					"name": "input-folder"
+				},
+				"description": "Name of the folder containing the input XML files; Need one level of subfolders",
+				"constraints": {
+					
+				}
+			},
+			{
+				"label": "output-folder",
+				"type": "String",
+				"value": "",
+				"editable": true,
+				"binding": {
+					"type": "camunda:inputParameter",
+					"name": "output-folder"
+				},
+				"description": "Destination folder to transform to",
+				"constraints": {
+					
+				}
+			},
+			{
+				"label": "parameters",
+				"type": "String",
+				"value": "",
+				"editable": true,
+				"binding": {
+					"type": "camunda:inputParameter",
+					"name": "parameters"
+				},
+				"description": "Map with transformation parameters",
+				"constraints": {
+					
+				}
+			}
+		]
+	},
+	{
+		"name": "batch-validate",
+		"id": "tektur.batch_validate",
+		"appliesTo": [
+			"bpmn:ServiceTask"
+		],
+		"entriesVisible": {
+			"multiInstance-loopCardinality": true,
+			"parameterType-text": true,
+			"parameterType": true,
+			"parameterType-script": true,
+			"parameterType-map": true,
+			"_all": false,
+			"outputs": true,
+			"parameterType-list": true,
+			"parameterName": true,
+			"inputs": true,
+			"multiInstance-elementVariable": true,
+			"multiInstance-collection": true
+		},
+		"properties": [
+			{
+				"binding": {
+					"name": "camunda:type",
+					"type": "property"
+				},
+				"type": "Hidden",
+				"value": "external"
+			},
+			{
+				"binding": {
+					"name": "camunda:topic",
+					"type": "property"
+				},
+				"label": "Topic",
+				"type": "String",
+				"description": "Task implementation to be executed",
+				"value": "batch_validate_xml"
+			},
+			{
+				"binding": {
+					"name": "camunda:asyncBefore",
+					"type": "property"
+				},
+				"type": "Hidden",
+				"value": true
+			},
+			{
+				"binding": {
+					"name": "camunda:asyncAfter",
+					"type": "property"
+				},
+				"type": "Hidden",
+				"value": true
+			},
+			{
+				"label": "input-folder",
+				"type": "String",
+				"value": "",
+				"editable": true,
+				"binding": {
+					"type": "camunda:inputParameter",
+					"name": "input-folder"
+				},
+				"description": "Name of the folder containing XML files to be validated; There must be one level of subfolders",
+				"constraints": {
+					
+				}
+			},
+			{
+				"label": "log-file",
+				"type": "String",
+				"value": "",
+				"editable": true,
+				"binding": {
+					"type": "camunda:inputParameter",
+					"name": "log-file"
+				},
+				"description": "Name of the log file to write the validation result to",
+				"constraints": {
+					
+				}
+			},			
+			{
+				"label": "valid",
+				"type": "String",
+				"value": "",
+				"editable": false,
+				"binding": {
+					"type": "camunda:outputParameter",
+					"source": "${ valid }"
+				},
+				"description": "Boolean result of the validation",
 				"constraints": {
 					
 				}

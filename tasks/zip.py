@@ -61,9 +61,13 @@ def file_unzip(process_dir, variables):
         ["zipFilename"] -- Filename of the ZIP file to be extracted
         ["outputFolder"] -- Name of the folder to extract the files to
     """
+    
+    filename = variables["zipFilename"]["value"]
+    if not filename:
+        raise TaskError("ZIP Error! Filename required")
 
     try:
-        unzipper(os.path.join(process_dir, variables["zipFilename"]["value"]),
+        unzipper(os.path.join(process_dir, filename),
                  os.path.join(process_dir, variables["outputFolder"]["value"]))
     except Exception as e:
         raise TaskError("UNZIP Error!",str(e) )
