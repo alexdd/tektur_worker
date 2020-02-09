@@ -831,7 +831,7 @@
 					"type": "camunda:inputParameter",
 					"name": "input-folder"
 				},
-				"description": "Name of the folder containing the input XML files; Need one level of subfolders",
+				"description": "Name of the folder containing the input XML files",
 				"constraints": {
 					
 				}
@@ -930,7 +930,7 @@
 					"type": "camunda:inputParameter",
 					"name": "input-folder"
 				},
-				"description": "Name of the folder containing XML files to be validated; There must be one level of subfolders",
+				"description": "Name of the folder containing XML files to be validated",
 				"constraints": {
 					
 				}

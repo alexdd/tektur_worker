@@ -142,7 +142,7 @@
         </camunda:inputOutput>
       </bpmn:extensionElements>
       <bpmn:incoming>SequenceFlow_1fn0nza</bpmn:incoming>
-      <bpmn:outgoing>SequenceFlow_169ym2k</bpmn:outgoing>
+      <bpmn:outgoing>SequenceFlow_18c121e</bpmn:outgoing>
     </bpmn:serviceTask>
     <bpmn:endEvent id="EndEvent_02b8ak9">
       <bpmn:extensionElements>
@@ -161,40 +161,58 @@
     <bpmn:sequenceFlow id="SequenceFlow_1fs1yzj" sourceRef="Task_1hbhnut" targetRef="Task_0hg5bxe" />
     <bpmn:sequenceFlow id="SequenceFlow_1j8zdbd" sourceRef="Task_0hg5bxe" targetRef="Task_0qajksg" />
     <bpmn:sequenceFlow id="SequenceFlow_1fn0nza" sourceRef="Task_15rppzx" targetRef="Task_150say3" />
-    <bpmn:sequenceFlow id="SequenceFlow_169ym2k" sourceRef="Task_150say3" targetRef="Task_1lwmhzc" />
-    <bpmn:serviceTask id="Task_1lwmhzc" name="http request" camunda:modelerTemplate="tektur.http-request" camunda:asyncBefore="true" camunda:asyncAfter="true" camunda:type="external" camunda:topic="http_request">
+    <bpmn:sequenceFlow id="SequenceFlow_18c121e" sourceRef="Task_150say3" targetRef="Task_0m4nx7q" />
+    <bpmn:serviceTask id="Task_0m4nx7q" name="s3 get XSLT zip" camunda:modelerTemplate="tektur.s3-get" camunda:asyncBefore="true" camunda:asyncAfter="true" camunda:type="external" camunda:topic="s3_get">
       <bpmn:extensionElements>
         <camunda:inputOutput>
-          <camunda:inputParameter name="method">get</camunda:inputParameter>
-          <camunda:inputParameter name="queryParameters">
-            <camunda:map>
-              <camunda:entry key="ulf">1</camunda:entry>
-              <camunda:entry key="horst">2</camunda:entry>
-            </camunda:map>
-          </camunda:inputParameter>
-          <camunda:inputParameter name="host">localhost</camunda:inputParameter>
-          <camunda:inputParameter name="port">8081</camunda:inputParameter>
-          <camunda:inputParameter name="endpoint">/tektur</camunda:inputParameter>
-          <camunda:inputParameter name="JSONfile">none</camunda:inputParameter>
-          <camunda:inputParameter name="responseFilename">sepp.txt</camunda:inputParameter>
+          <camunda:inputParameter name="bucket">tektur</camunda:inputParameter>
+          <camunda:inputParameter name="key">xslt.zip</camunda:inputParameter>
+          <camunda:inputParameter name="filename">xslt.zip</camunda:inputParameter>
         </camunda:inputOutput>
       </bpmn:extensionElements>
-      <bpmn:incoming>SequenceFlow_169ym2k</bpmn:incoming>
+      <bpmn:incoming>SequenceFlow_18c121e</bpmn:incoming>
+      <bpmn:outgoing>SequenceFlow_05474ph</bpmn:outgoing>
     </bpmn:serviceTask>
-    <bpmn:userTask id="Task_0mapra3" name="check result" />
-    <bpmn:task id="Task_0m4nx7q" name="s3 get XSLT zip" />
-    <bpmn:task id="Task_1ru6vxe" name="unzip XSLT" />
-    <bpmn:serviceTask id="Task_0jo95pm" name="XML Batch transform" camunda:modelerTemplate="tektur.batch_xslt" camunda:asyncBefore="true" camunda:asyncAfter="true" camunda:type="external" camunda:topic="batch_transform_xml">
+    <bpmn:sequenceFlow id="SequenceFlow_05474ph" sourceRef="Task_0m4nx7q" targetRef="Task_06wi83w" />
+    <bpmn:serviceTask id="Task_06wi83w" name="unzip xslt" camunda:modelerTemplate="tektur.unzip" camunda:asyncBefore="true" camunda:asyncAfter="true" camunda:type="external" camunda:topic="file_unzip">
       <bpmn:extensionElements>
         <camunda:inputOutput>
-          <camunda:inputParameter name="xslt-folder"></camunda:inputParameter>
-          <camunda:inputParameter name="input-folder"></camunda:inputParameter>
-          <camunda:inputParameter name="output-folder"></camunda:inputParameter>
+          <camunda:inputParameter name="zipFilename">xslt.zip</camunda:inputParameter>
+          <camunda:inputParameter name="outputFolder">xslt</camunda:inputParameter>
+        </camunda:inputOutput>
+      </bpmn:extensionElements>
+      <bpmn:incoming>SequenceFlow_05474ph</bpmn:incoming>
+      <bpmn:outgoing>SequenceFlow_103eaem</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:sequenceFlow id="SequenceFlow_103eaem" sourceRef="Task_06wi83w" targetRef="Task_1of9yep" />
+    <bpmn:serviceTask id="Task_1of9yep" name="batch convert xml" camunda:modelerTemplate="tektur.batch_xslt" camunda:asyncBefore="true" camunda:asyncAfter="true" camunda:type="external" camunda:topic="batch_transform_xml">
+      <bpmn:extensionElements>
+        <camunda:inputOutput>
           <camunda:inputParameter name="parameters"></camunda:inputParameter>
+          <camunda:inputParameter name="xslt-folder">xslt</camunda:inputParameter>
+          <camunda:inputParameter name="input-folder">result</camunda:inputParameter>
+          <camunda:inputParameter name="output-folder">result-batch</camunda:inputParameter>
         </camunda:inputOutput>
       </bpmn:extensionElements>
+      <bpmn:incoming>SequenceFlow_103eaem</bpmn:incoming>
+      <bpmn:outgoing>SequenceFlow_1f79owo</bpmn:outgoing>
     </bpmn:serviceTask>
-    <bpmn:task id="Task_15igqfj" name="XML Batch valida" />
+    <bpmn:sequenceFlow id="SequenceFlow_1f79owo" sourceRef="Task_1of9yep" targetRef="Task_03dbwqm" />
+    <bpmn:userTask id="Task_0mapra3" name="check result">
+      <bpmn:incoming>SequenceFlow_0zjn266</bpmn:incoming>
+    </bpmn:userTask>
+    <bpmn:sequenceFlow id="SequenceFlow_0zjn266" sourceRef="Task_03dbwqm" targetRef="Task_0mapra3" />
+    <bpmn:serviceTask id="Task_03dbwqm" name="validate  xml" camunda:modelerTemplate="tektur.batch_validate" camunda:asyncBefore="true" camunda:asyncAfter="true" camunda:type="external" camunda:topic="batch_validate_xml">
+      <bpmn:extensionElements>
+        <camunda:inputOutput>
+          <camunda:inputParameter name="log-file">log.txt</camunda:inputParameter>
+          <camunda:inputParameter name="input-folder">result-batch\step20</camunda:inputParameter>
+          <camunda:outputParameter name="valid">${ valid }</camunda:outputParameter>
+        </camunda:inputOutput>
+      </bpmn:extensionElements>
+      <bpmn:incoming>SequenceFlow_1f79owo</bpmn:incoming>
+      <bpmn:outgoing>SequenceFlow_0zjn266</bpmn:outgoing>
+    </bpmn:serviceTask>
   </bpmn:process>
   <bpmndi:BPMNDiagram id="BPMNDiagram_1">
     <bpmndi:BPMNPlane id="BPMNPlane_1" bpmnElement="Collaboration_0nrr462">
@@ -219,7 +237,7 @@
         <di:waypoint x="569" y="116" />
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNShape id="UserTask_14hc7gt_di" bpmnElement="Task_0mapra3">
-        <dc:Bounds x="699" y="550" width="100" height="80" />
+        <dc:Bounds x="439" y="450" width="100" height="80" />
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="ServiceTask_1ln69gv_di" bpmnElement="Task_049w7j6">
         <dc:Bounds x="699" y="76" width="100" height="80" />
@@ -277,27 +295,40 @@
         <di:waypoint x="409" y="370" />
         <di:waypoint x="439" y="370" />
       </bpmndi:BPMNEdge>
-      <bpmndi:BPMNEdge id="SequenceFlow_169ym2k_di" bpmnElement="SequenceFlow_169ym2k">
-        <di:waypoint x="539" y="370" />
-        <di:waypoint x="569" y="370" />
-      </bpmndi:BPMNEdge>
       <bpmndi:BPMNShape id="ServiceTask_017qcll_di" bpmnElement="Task_150say3">
         <dc:Bounds x="439" y="330" width="100" height="80" />
       </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape id="ServiceTask_00sxn9e_di" bpmnElement="Task_1lwmhzc">
+      <bpmndi:BPMNEdge id="SequenceFlow_18c121e_di" bpmnElement="SequenceFlow_18c121e">
+        <di:waypoint x="539" y="370" />
+        <di:waypoint x="569" y="370" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNShape id="ServiceTask_154piuc_di" bpmnElement="Task_0m4nx7q">
         <dc:Bounds x="569" y="330" width="100" height="80" />
       </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape id="Task_0m4nx7q_di" bpmnElement="Task_0m4nx7q">
+      <bpmndi:BPMNEdge id="SequenceFlow_05474ph_di" bpmnElement="SequenceFlow_05474ph">
+        <di:waypoint x="669" y="370" />
+        <di:waypoint x="699" y="370" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNShape id="ServiceTask_02hbhs6_di" bpmnElement="Task_06wi83w">
         <dc:Bounds x="699" y="330" width="100" height="80" />
       </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape id="Task_1ru6vxe_di" bpmnElement="Task_1ru6vxe">
-        <dc:Bounds x="309" y="460" width="100" height="80" />
+      <bpmndi:BPMNEdge id="SequenceFlow_103eaem_di" bpmnElement="SequenceFlow_103eaem">
+        <di:waypoint x="749" y="410" />
+        <di:waypoint x="749" y="450" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNShape id="ServiceTask_05ramlb_di" bpmnElement="Task_1of9yep">
+        <dc:Bounds x="699" y="450" width="100" height="80" />
       </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape id="ServiceTask_0ue13ki_di" bpmnElement="Task_0jo95pm">
-        <dc:Bounds x="450" y="460" width="100" height="80" />
-      </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape id="Task_15igqfj_di" bpmnElement="Task_15igqfj">
-        <dc:Bounds x="580" y="460" width="100" height="80" />
+      <bpmndi:BPMNEdge id="SequenceFlow_1f79owo_di" bpmnElement="SequenceFlow_1f79owo">
+        <di:waypoint x="699" y="490" />
+        <di:waypoint x="669" y="490" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="SequenceFlow_0zjn266_di" bpmnElement="SequenceFlow_0zjn266">
+        <di:waypoint x="569" y="490" />
+        <di:waypoint x="539" y="490" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNShape id="ServiceTask_1gtitta_di" bpmnElement="Task_03dbwqm">
+        <dc:Bounds x="569" y="450" width="100" height="80" />
       </bpmndi:BPMNShape>
     </bpmndi:BPMNPlane>
   </bpmndi:BPMNDiagram>
