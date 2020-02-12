@@ -1,5 +1,7 @@
 import secure_settings
 
+JAVA_CMD = "java"
+TIDY_CMD = "tidy"
 CAMUNDA_SERVER_URL = "http://localhost:8081/"
 WORKER_ID = "TekturWorker"
 POLL_INTERVAL = 1
