@@ -35,7 +35,7 @@ def file_zip(process_dir, variables):
 
     Attributes:
         process_dir -- the generated working directory of the calling process
-        variables -- a dictonary containing key-value pairs passed from Camunda
+        variables -- a dictionary containing key-value pairs passed from Camunda
     Camunda Parameters:
         ["inputFolder"] -- The folder to be zipped
         ["zipFilename"] -- Filename of the ZIP file
@@ -56,7 +56,7 @@ def file_unzip(process_dir, variables):
 
     Attributes:
         process_dir -- the generated working directory of the calling process
-        variables -- a dictonary containing key-value pairs passed from Camunda
+        variables -- a dictionary containing key-value pairs passed from Camunda
     Camunda Parameters:
         ["zipFilename"] -- Filename of the ZIP file to be extracted
         ["outputFolder"] -- Name of the folder to extract the files to

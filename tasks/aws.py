@@ -7,7 +7,7 @@ def s3_get(process_dir, variables):
 
     Attributes:
         process_dir -- the generated working directory of the calling process
-        variables -- a dictonary containing key-value pairs passed from Camunda
+        variables -- a dictionary containing key-value pairs passed from Camunda
     Camunda Parameters:
         ["filename"] -- The name of the file to store the content to
         ["key"] -- The name of the S3 object to download  
@@ -36,7 +36,7 @@ def s3_list(process_dir, variables):
 
     Attributes:
         process_dir -- the generated working directory of the calling process
-        variables -- a dictonary containing key-value pairs passed from Camunda
+        variables -- a dictionary containing key-value pairs passed from Camunda
     Camunda Parameters:
         ["bucket"] -- The name of the S3 bucket
         ["key"] -- A regex defining the object names to list 
@@ -59,7 +59,7 @@ def s3_put(process_dir, variables):
 
     Attributes:
         process_dir -- the generated working directory of the calling process
-        variables -- a dictonary containing key-value pairs passed from Camunda
+        variables -- a dictionary containing key-value pairs passed from Camunda
     Camunda Parameters:
         ["filename"] -- The name of the file to put into the bucket
         ["bucket"] -- The name of the bucket

@@ -10,7 +10,7 @@ def exist_load(process_dir, variables):
 
     Attributes:
         process_dir -- the generated working directory of the calling process
-        variables -- a dictonary containing key-value pairs passed from Camunda
+        variables -- a dictionary containing key-value pairs passed from Camunda
     Camunda Parameters:
         ["inputFolder"] -- The name of the folder containing the input files
         ["dbPath"] -- The path on the exist-db where the files will be stored

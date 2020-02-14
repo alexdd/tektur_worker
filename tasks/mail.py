@@ -9,7 +9,7 @@ def send_mail(process_dir, variables):
 
     Attributes:
         process_dir -- the generated working directory of the calling process
-        variables -- a dictonary containing key-value pairs passed from Camunda
+        variables -- a dictionary containing key-value pairs passed from Camunda
     Camunda Parameters:
         ["to"] -- The recepient's email address
         ["subject"] -- The subject line of the email

@@ -9,7 +9,7 @@ def transform_xml(process_dir, variables):
 
     Attributes:
         process_dir -- the generated working directory of the calling process
-        variables -- a dictonary containing key-value pairs passed from Camunda
+        variables -- a dictionary containing key-value pairs passed from Camunda
     Camunda Parameters:
         ["initial-template"] -- The XSLT main template
         ["xslt-file"] -- The filename of the XSLT transformation file 
@@ -63,7 +63,7 @@ def batch_transform_xml(process_dir, variables):
 
     Attributes:
         process_dir -- the generated working directory of the calling process
-        variables -- a dictonary containing key-value pairs passed from Camunda
+        variables -- a dictionary containing key-value pairs passed from Camunda
     Camunda Parameters:
         ["xslt-folder"] -- The name of the folder containing the XSLT files to process in sort order
         ["input-folder"] -- The name of the folder containing the input files 
@@ -116,7 +116,7 @@ def batch_validate_xml(process_dir, variables):
 
     Attributes:
         process_dir -- the generated working directory of the calling process
-        variables -- a dictonary containing key-value pairs passed from Camunda
+        variables -- a dictionary containing key-value pairs passed from Camunda
     Camunda Parameters:
         ["log-file"] -- The name of the log file containing the validation errors if any
         ["input-folder"] -- The name of the folder containing the input XML files to validate,
@@ -160,11 +160,13 @@ def batch_tidy_html(process_dir, variables):
 
     Attributes:
         process_dir -- the generated working directory of the calling process
-        variables -- a dictonary containing key-value pairs passed from Camunda
+        variables -- a dictionary containing key-value pairs passed from Camunda
     Camunda Parameters:
         ["log-folder"] -- The name of the folder containing the HTML Tidy logfiles
         ["input-folder"] -- The name of the folder containing the input HTML files to tidy,
         ["output-folder"] -- The name of the resulting folder
+        
+    Note that Tidy needs some different parameters for the same thing, when run on Linux!
     """
     log_folder = os.path.join(process_dir, variables["log-folder"]["value"])
     input_folder = os.path.join(process_dir, variables["input-folder"]["value"])
