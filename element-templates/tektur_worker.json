@@ -1464,6 +1464,30 @@
 						"value": "external"
 					}
 				]
+			},
+					{
+				"label": "Delete",
+				"type": "Dropdown",
+				"value": "yes",
+				"editable": true,
+				"binding": {
+					"type": "camunda:inputParameter",
+					"name": "delete"
+				},
+				"description": "Flag wether the folder should be deleted or not",
+				"constraints": {
+					
+				},
+				"choices": [
+					{
+						"name": "yes",
+						"value": "yes"
+					},
+					{
+						"name": "no",
+						"value": "not"
+					}
+				]
 			}
 		
 		
@@ -1539,5 +1563,76 @@
 			}
 		}
 	]
-}		
+},
+		{
+				"name": "delete-path",
+				"id": "tektur.delete-path",
+				"appliesTo": [
+					"bpmn:ServiceTask"
+				],
+				"entriesVisible": {
+				"multiInstance-loopCardinality": true,
+				"parameterType-text": true,
+				"parameterType": true,
+				"parameterType-script": true,
+				"parameterType-map": true,
+				"_all": false,
+				"outputs": true,
+				"parameterType-list": true,
+				"parameterName": true,
+				"inputs": true,
+				"multiInstance-elementVariable": true,
+				"multiInstance-collection": true
+			},
+			"properties": [
+				{
+					"binding": {
+						"name": "camunda:type",
+						"type": "property"
+					},
+					"type": "Hidden",
+					"value": "external"
+				},
+				{
+					"binding": {
+						"name": "camunda:topic",
+						"type": "property"
+					},
+					"label": "Topic",
+					"type": "String",
+					"description": "Task implementation to be executed",
+					"value": "delete_path"
+				},
+				{
+					"binding": {
+						"name": "camunda:asyncBefore",
+						"type": "property"
+					},
+					"type": "Hidden",
+					"value": true
+				},
+				{
+					"binding": {
+						"name": "camunda:asyncAfter",
+						"type": "property"
+					},
+					"type": "Hidden",
+					"value": true
+				},
+				{
+					"label": "Path to be deleted",
+					"type": "String",
+					"value": "",
+					"editable": true,
+					"binding": {
+						"type": "camunda:inputParameter",
+						"name": "path"
+					},
+					"description": "Name of the folder structure to be deleted.",
+					"constraints": {
+					
+			}
+		}
+    ]
+}			
 ]

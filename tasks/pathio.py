@@ -1,3 +1,19 @@
+#    Tektur Worker - Camuda eternal task executor for ETL processes 
+#    Copyright (C) 2020  Alex Düsel, tekturcms@gmail.com
+
+#    This program is free software: you can redistribute it and/or modify
+#    it under the terms of the GNU General Public License as published by
+#    the Free Software Foundation, either version 3 of the License, or
+#    (at your option) any later version.
+
+#    This program is distributed in the hope that it will be useful,
+#    but WITHOUT ANY WARRANTY; without even the implied warranty of
+#    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+#    GNU General Public License for more details.
+
+#    You should have received a copy of the GNU General Public License
+#    along with this program.  If not, see <https://www.gnu.org/licenses/>.
+
 import os, shutil
 from errors import TaskError
 
@@ -29,11 +45,13 @@ def move_folder(process_dir, variables):
         ["folder-to-move"] -- The name of the folder that is going to be moved
         ["location"] -- switch between "process-dir" or "external" (absolute path)
         ["destination"] -- destination folder
+        ["delete"] -- flag wether the source folder should be deleted or not
     """
 
     folder_to_move = os.path.join(process_dir, variables["source-folder"]["value"])
     location = variables["location"]["value"]
     destination = os.path.join(process_dir, variables["destination-folder"]["value"])
+    delete = variables["delete"]["value"]
     os.makedirs(destination, exist_ok=True)
 
     if location == "external":
@@ -46,7 +64,8 @@ def move_folder(process_dir, variables):
     except Exception as e:
         raise TaskError("MOVE FOLDER Error!", str(e))
     
-    shutil.rmtree(folder_to_move, ignore_errors=True)
+    if delete == "yes":
+        shutil.rmtree(folder_to_move, ignore_errors=True)
     return {}
 
 def make_path(process_dir, variables):
@@ -64,6 +83,20 @@ def make_path(process_dir, variables):
     os.makedirs(path, exist_ok=True)
     return {}
 
+def delete_path(process_dir, variables):
+    
+    """This task removes the folder structure given by the provided path
+
+    Attributes:
+        process_dir -- the generated working directory of the calling process
+        variables -- a dictionary containing key-value pairs passed from Camunda
+    Camunda Parameters:
+        ["path"] -- The relative path  to create the directories for e.g. psth/to/desst
+    """
+    
+    path = os.path.join(process_dir, variables["path"]["value"])
+    shutil.rmtree(path, ignore_errors=True)
+    return {}
     
     
   

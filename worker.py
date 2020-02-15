@@ -1,5 +1,21 @@
-import requests, time, os, json, logging
-from settings import CAMUNDA_SERVER_URL, POLL_INTERVAL, WORKING_DIR, WORKER_ID
+#    Tektur Worker - Camuda eternal task executor for ETL processes 
+#    Copyright (C) 2020  Alex Düsel, tekturcms@gmail.com
+
+#    This program is free software: you can redistribute it and/or modify
+#    it under the terms of the GNU General Public License as published by
+#    the Free Software Foundation, either version 3 of the License, or
+#    (at your option) any later version.
+
+#    This program is distributed in the hope that it will be useful,
+#    but WITHOUT ANY WARRANTY; without even the implied warranty of
+#    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+#    GNU General Public License for more details.
+
+#    You should have received a copy of the GNU General Public License
+#    along with this program.  If not, see <https://www.gnu.org/licenses/>.
+
+import requests, time, os, json, logging, shutil
+from settings import *
 import tasks
 from errors import TaskError
 
@@ -17,8 +33,10 @@ class CamundaWorker:
         - exist-db: load xml files ino the db
         - http: send a get or post request to a webservice
         - mail: send an email with an attachment
-        - xslt: transform XML using XSLT
+        - transform: transform XML using XSLT or Tidy HTML
         - zip: zip or extract files
+        - pathio: create or delete folder structures
+        
     It may be used e.g. for XML ETL processes ...
     """
     
@@ -27,7 +45,23 @@ class CamundaWorker:
         self.run()
         
     def run(self):
+        
+        # poll Camunda server for tasks to be executged in a loop 
+        
+        processInstanceId = None
+        
         while self.running: 
+                   
+            # delete working directory if process execution has been finished
+            
+            if processInstanceId:
+                res = requests.get(CAMUNDA_SERVER_URL + 'engine-rest/process-instance/' + processInstanceId)
+                process_status = json.loads(res.text)
+                if res.status_code == 404 or process_status["ended"]:
+                    shutil.rmtree(os.path.join(WORKING_DIR, processInstanceId), ignore_errors=True)
+           
+            # fetch task definitions to be scheduled
+            
             try:
                 log.setLevel(logging.INFO)
                 res = requests.post(fetch_url, json = {"workerId": WORKER_ID,
@@ -45,21 +79,33 @@ class CamundaWorker:
             if len(response) == 0:
                 time.sleep(POLL_INTERVAL)
                 continue
-      
+            
+            # determine the task ID and make a temp working directory
+            
             taskId = str(response[0]['id'])
             processInstanceId = str(response[0]['processInstanceId'])
             tmp_path = os.path.join(WORKING_DIR, processInstanceId)
             os.makedirs(tmp_path, exist_ok=True)
             log.setLevel(logging.DEBUG)
+            
             try:
+                
+                # try to process the task
+                
                 variables = getattr(tasks, response[0]['topicName'])(tmp_path, response[0]['variables']) 
+                
+                # send a complete request if successfuly finished processing along with the updated variables state
+                
                 complete = requests.post(CAMUNDA_SERVER_URL + 'engine-rest/external-task/' + taskId + '/complete', 
                                          json = {"workerId": WORKER_ID,
                                                  "variables": variables})
             except TaskError as te:
+                
+                # Notify Camunda server in case that the task execution has failed
+                
                 failed = requests.post(CAMUNDA_SERVER_URL + 'engine-rest/external-task/' + taskId + '/failure',
                                        json = {"workerId": WORKER_ID, 
                                                "errorMessage" : te.message, 
                                                "errorDetails" : te.details})
-
+                   
 CamundaWorker()
