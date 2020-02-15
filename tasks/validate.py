@@ -1,5 +1,5 @@
-#    Tektur Worker - Camuda eternal task executor for ETL processes 
-#    Copyright (C) 2020  Alex Düsel, tekturcms@gmail.com
+#    Tektur Worker - Camuda external task executor for ETL processes 
+#    Copyright (C) 2020  Alex Duesel, tekturcms@gmail.com
 
 #    This program is free software: you can redistribute it and/or modify
 #    it under the terms of the GNU General Public License as published by
@@ -109,19 +109,21 @@ def generate_schematron_xslt(process_dir, variables):
     
     call_schematron_stylesheets(
         schematron_file, 
-        include_tmp_file, 
+        include_tmp_file.name, 
         os.path.join(SCHEMATRON_DIR, "iso_dsdl_include.xsl"))
 
     call_schematron_stylesheets(
-        include_tmp_file, 
-        expand_tmp_file, 
+        include_tmp_file.name, 
+        expand_tmp_file.name, 
         os.path.join(SCHEMATRON_DIR, "iso_abstract_expand.xsl"))
 
     call_schematron_stylesheets(
-        expand_tmp_file, 
+        expand_tmp_file.name, 
         os.path.join(process_dir, variables["schematron-xslt"]["value"]), 
         os.path.join(SCHEMATRON_DIR, "iso_svrl_for_xslt2.xsl"))
-
+    
+    if delete_schematron_file:
+        os.unlink(schematron_file)
     return {}
     
     

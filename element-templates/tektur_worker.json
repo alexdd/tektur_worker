@@ -391,6 +391,105 @@
 		]
 	},
 	{
+		"name": "create-schematron",
+		"id": "tektur.geerate-schematron-xslt",
+		"appliesTo": [
+			"bpmn:ServiceTask"
+		],
+		"entriesVisible": {
+			"multiInstance-loopCardinality": true,
+			"parameterType-text": true,
+			"parameterType": true,
+			"parameterType-script": true,
+			"parameterType-map": true,
+			"_all": false,
+			"outputs": true,
+			"parameterType-list": true,
+			"parameterName": true,
+			"inputs": true,
+			"multiInstance-elementVariable": true,
+			"multiInstance-collection": true
+		},
+		"properties": [
+			{
+				"binding": {
+					"name": "camunda:type",
+					"type": "property"
+				},
+				"type": "Hidden",
+				"value": "external"
+			},
+			{
+				"binding": {
+					"name": "camunda:topic",
+					"type": "property"
+				},
+				"label": "Topic",
+				"type": "String",
+				"description": "Task implementation to be executed",
+				"value": "generate_schematron_xslt"
+			},
+			{
+				"binding": {
+					"name": "camunda:asyncBefore",
+					"type": "property"
+				},
+				"type": "Hidden",
+				"value": true
+			},
+			{
+				"binding": {
+					"name": "camunda:asyncAfter",
+					"type": "property"
+				},
+				"type": "Hidden",
+				"value": true
+			},
+			{
+				"label": "Schematron",
+				"type": "Text",
+				"value": "",
+				"editable": true,
+				"binding": {
+					"type": "camunda:inputParameter",
+					"name": "schematron"
+				},
+				"description": "Inline Schematron rules document to process. Parameter schematron-file must be empty.",
+				"constraints": {
+					
+				}
+			},
+			{
+				"label": "Schematron File",
+				"type": "String",
+				"value": "",
+				"editable": true,
+				"binding": {
+					"type": "camunda:inputParameter",
+					"name": "schematron-file"
+				},
+				"description": "Name of the input file that contains the Schematron rules.",
+				"constraints": {
+					
+				}
+			},
+			{
+				"label": "Schematron XSLT",
+				"type": "String",
+				"value": "",
+				"editable": true,
+				"binding": {
+					"type": "camunda:inputParameter",
+					"name": "schematron-xslt"
+				},
+				"description": "Name of the result file which contains the compiled schematron rules.",
+				"constraints": {
+					
+				}
+			}
+		]
+	},
+	{
 		"name": "s3-list",
 		"id": "tektur.s3-list",
 		"appliesTo": [
