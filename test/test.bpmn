@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<bpmn:definitions xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:dc="http://www.omg.org/spec/DD/20100524/DC" xmlns:camunda="http://camunda.org/schema/1.0/bpmn" xmlns:di="http://www.omg.org/spec/DD/20100524/DI" id="Definitions_1026m6m" targetNamespace="http://bpmn.io/schema/bpmn" exporter="Camunda Modeler" exporterVersion="3.4.1">
+<bpmn:definitions xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:dc="http://www.omg.org/spec/DD/20100524/DC" xmlns:camunda="http://camunda.org/schema/1.0/bpmn" xmlns:di="http://www.omg.org/spec/DD/20100524/DI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" id="Definitions_1026m6m" targetNamespace="http://bpmn.io/schema/bpmn" exporter="Camunda Modeler" exporterVersion="3.4.1">
   <bpmn:collaboration id="Collaboration_0nrr462">
     <bpmn:participant id="Participant_1junhp7" processRef="Python_Task_test" />
   </bpmn:collaboration>
@@ -36,14 +36,6 @@
       <bpmn:incoming>SequenceFlow_1fpkdf4</bpmn:incoming>
       <bpmn:outgoing>SequenceFlow_1va1iex</bpmn:outgoing>
     </bpmn:serviceTask>
-    <bpmn:startEvent id="StartEvent_1">
-      <bpmn:extensionElements>
-        <camunda:formData>
-          <camunda:formField id="test" label="test" type="string" />
-        </camunda:formData>
-      </bpmn:extensionElements>
-      <bpmn:outgoing>SequenceFlow_11pbjwo</bpmn:outgoing>
-    </bpmn:startEvent>
     <bpmn:serviceTask id="Task_1k9ktll" name="s3 put" camunda:modelerTemplate="tektur.s3-put" camunda:asyncBefore="true" camunda:asyncAfter="true" camunda:type="external" camunda:topic="s3_put">
       <bpmn:extensionElements>
         <camunda:inputOutput>
@@ -53,7 +45,7 @@
           <camunda:inputParameter name="key">test.zip</camunda:inputParameter>
         </camunda:inputOutput>
       </bpmn:extensionElements>
-      <bpmn:incoming>SequenceFlow_11pbjwo</bpmn:incoming>
+      <bpmn:incoming>SequenceFlow_1bd8p9s</bpmn:incoming>
       <bpmn:outgoing>SequenceFlow_1fpkdf4</bpmn:outgoing>
     </bpmn:serviceTask>
     <bpmn:serviceTask id="Task_1hbhnut" name="xslt from file" camunda:modelerTemplate="tektur.xslt" camunda:asyncBefore="true" camunda:asyncAfter="true" camunda:type="external" camunda:topic="transform_xml">
@@ -144,17 +136,6 @@
       <bpmn:incoming>SequenceFlow_1fn0nza</bpmn:incoming>
       <bpmn:outgoing>SequenceFlow_18c121e</bpmn:outgoing>
     </bpmn:serviceTask>
-    <bpmn:sequenceFlow id="SequenceFlow_1co9sif" sourceRef="Task_0fnfrqy" targetRef="Task_15rppzx" />
-    <bpmn:sequenceFlow id="SequenceFlow_1ruutix" sourceRef="Task_0qajksg" targetRef="Task_0fnfrqy" />
-    <bpmn:sequenceFlow id="SequenceFlow_11pbjwo" sourceRef="StartEvent_1" targetRef="Task_1k9ktll" />
-    <bpmn:sequenceFlow id="SequenceFlow_1va1iex" sourceRef="Task_04c2w9l" targetRef="Task_1pwh6ea" />
-    <bpmn:sequenceFlow id="SequenceFlow_1l3t2pe" sourceRef="Task_1pwh6ea" targetRef="Task_049w7j6" />
-    <bpmn:sequenceFlow id="SequenceFlow_1fpkdf4" sourceRef="Task_1k9ktll" targetRef="Task_04c2w9l" />
-    <bpmn:sequenceFlow id="SequenceFlow_094bbxy" sourceRef="Task_049w7j6" targetRef="Task_1hbhnut" />
-    <bpmn:sequenceFlow id="SequenceFlow_1fs1yzj" sourceRef="Task_1hbhnut" targetRef="Task_0hg5bxe" />
-    <bpmn:sequenceFlow id="SequenceFlow_1j8zdbd" sourceRef="Task_0hg5bxe" targetRef="Task_0qajksg" />
-    <bpmn:sequenceFlow id="SequenceFlow_1fn0nza" sourceRef="Task_15rppzx" targetRef="Task_150say3" />
-    <bpmn:sequenceFlow id="SequenceFlow_18c121e" sourceRef="Task_150say3" targetRef="Task_0m4nx7q" />
     <bpmn:serviceTask id="Task_0m4nx7q" name="s3 get XSLT zip" camunda:modelerTemplate="tektur.s3-get" camunda:asyncBefore="true" camunda:asyncAfter="true" camunda:type="external" camunda:topic="s3_get">
       <bpmn:extensionElements>
         <camunda:inputOutput>
@@ -166,7 +147,6 @@
       <bpmn:incoming>SequenceFlow_18c121e</bpmn:incoming>
       <bpmn:outgoing>SequenceFlow_05474ph</bpmn:outgoing>
     </bpmn:serviceTask>
-    <bpmn:sequenceFlow id="SequenceFlow_05474ph" sourceRef="Task_0m4nx7q" targetRef="Task_06wi83w" />
     <bpmn:serviceTask id="Task_06wi83w" name="unzip xslt" camunda:modelerTemplate="tektur.unzip" camunda:asyncBefore="true" camunda:asyncAfter="true" camunda:type="external" camunda:topic="file_unzip">
       <bpmn:extensionElements>
         <camunda:inputOutput>
@@ -177,7 +157,6 @@
       <bpmn:incoming>SequenceFlow_05474ph</bpmn:incoming>
       <bpmn:outgoing>SequenceFlow_103eaem</bpmn:outgoing>
     </bpmn:serviceTask>
-    <bpmn:sequenceFlow id="SequenceFlow_103eaem" sourceRef="Task_06wi83w" targetRef="Task_1of9yep" />
     <bpmn:serviceTask id="Task_1of9yep" name="batch convert xml" camunda:modelerTemplate="tektur.batch_xslt" camunda:asyncBefore="true" camunda:asyncAfter="true" camunda:type="external" camunda:topic="batch_transform_xml">
       <bpmn:extensionElements>
         <camunda:inputOutput>
@@ -190,7 +169,6 @@
       <bpmn:incoming>SequenceFlow_103eaem</bpmn:incoming>
       <bpmn:outgoing>SequenceFlow_1f79owo</bpmn:outgoing>
     </bpmn:serviceTask>
-    <bpmn:sequenceFlow id="SequenceFlow_1f79owo" sourceRef="Task_1of9yep" targetRef="Task_03dbwqm" />
     <bpmn:serviceTask id="Task_03dbwqm" name="validate  xml" camunda:modelerTemplate="tektur.batch_validate" camunda:asyncBefore="true" camunda:asyncAfter="true" camunda:type="external" camunda:topic="batch_validate_xml">
       <bpmn:extensionElements>
         <camunda:inputOutput>
@@ -202,7 +180,6 @@
       <bpmn:incoming>SequenceFlow_1f79owo</bpmn:incoming>
       <bpmn:outgoing>SequenceFlow_0jz0t24</bpmn:outgoing>
     </bpmn:serviceTask>
-    <bpmn:sequenceFlow id="SequenceFlow_0jz0t24" sourceRef="Task_03dbwqm" targetRef="Task_1ii8nqh" />
     <bpmn:serviceTask id="Task_1ii8nqh" name="get html files" camunda:modelerTemplate="tektur.s3-get" camunda:asyncBefore="true" camunda:asyncAfter="true" camunda:type="external" camunda:topic="s3_get">
       <bpmn:extensionElements>
         <camunda:inputOutput>
@@ -214,8 +191,6 @@
       <bpmn:incoming>SequenceFlow_0jz0t24</bpmn:incoming>
       <bpmn:outgoing>SequenceFlow_19el1sx</bpmn:outgoing>
     </bpmn:serviceTask>
-    <bpmn:sequenceFlow id="SequenceFlow_19el1sx" sourceRef="Task_1ii8nqh" targetRef="Task_0qhjvnp" />
-    <bpmn:sequenceFlow id="SequenceFlow_0v8fx9a" sourceRef="Task_0qhjvnp" targetRef="Task_0zie3is" />
     <bpmn:serviceTask id="Task_0qhjvnp" name="unzip html" camunda:modelerTemplate="tektur.unzip" camunda:asyncBefore="true" camunda:asyncAfter="true" camunda:type="external" camunda:topic="file_unzip">
       <bpmn:extensionElements>
         <camunda:inputOutput>
@@ -226,7 +201,6 @@
       <bpmn:incoming>SequenceFlow_19el1sx</bpmn:incoming>
       <bpmn:outgoing>SequenceFlow_0v8fx9a</bpmn:outgoing>
     </bpmn:serviceTask>
-    <bpmn:sequenceFlow id="SequenceFlow_1uxfq6f" sourceRef="Task_0zie3is" targetRef="Task_0oo63zr" />
     <bpmn:serviceTask id="Task_0zie3is" name="tidy html files" camunda:modelerTemplate="tektur.batch_tidy" camunda:asyncBefore="true" camunda:asyncAfter="true" camunda:type="external" camunda:topic="batch_tidy_html">
       <bpmn:extensionElements>
         <camunda:inputOutput>
@@ -237,9 +211,8 @@
         </camunda:inputOutput>
       </bpmn:extensionElements>
       <bpmn:incoming>SequenceFlow_0v8fx9a</bpmn:incoming>
-      <bpmn:outgoing>SequenceFlow_1uxfq6f</bpmn:outgoing>
+      <bpmn:outgoing>SequenceFlow_15bbevz</bpmn:outgoing>
     </bpmn:serviceTask>
-    <bpmn:sequenceFlow id="SequenceFlow_1fjtgsw" sourceRef="Task_0smq08j" targetRef="Task_0wnekt9" />
     <bpmn:serviceTask id="Task_0smq08j" name="make path" camunda:modelerTemplate="tektur.make-path" camunda:asyncBefore="true" camunda:asyncAfter="true" camunda:type="external" camunda:topic="make_path">
       <bpmn:extensionElements>
         <camunda:inputOutput>
@@ -249,8 +222,6 @@
       <bpmn:incoming>SequenceFlow_17kvdl1</bpmn:incoming>
       <bpmn:outgoing>SequenceFlow_1fjtgsw</bpmn:outgoing>
     </bpmn:serviceTask>
-    <bpmn:sequenceFlow id="SequenceFlow_1c6amon" sourceRef="Task_0wnekt9" targetRef="Task_0cosis1" />
-    <bpmn:sequenceFlow id="SequenceFlow_17kvdl1" sourceRef="Task_0oo63zr" targetRef="Task_0smq08j" />
     <bpmn:serviceTask id="Task_0oo63zr" name="move folder" camunda:modelerTemplate="tektur.move-folder" camunda:asyncBefore="true" camunda:asyncAfter="true" camunda:type="external" camunda:topic="move_folder">
       <bpmn:extensionElements>
         <camunda:inputOutput>
@@ -260,7 +231,7 @@
           <camunda:inputParameter name="delete">yes</camunda:inputParameter>
         </camunda:inputOutput>
       </bpmn:extensionElements>
-      <bpmn:incoming>SequenceFlow_1uxfq6f</bpmn:incoming>
+      <bpmn:incoming>SequenceFlow_0y4dhgb</bpmn:incoming>
       <bpmn:outgoing>SequenceFlow_17kvdl1</bpmn:outgoing>
     </bpmn:serviceTask>
     <bpmn:serviceTask id="Task_0wnekt9" name="delete path" camunda:modelerTemplate="tektur.delete-path" camunda:asyncBefore="true" camunda:asyncAfter="true" camunda:type="external" camunda:topic="delete_path">
@@ -272,7 +243,6 @@
       <bpmn:incoming>SequenceFlow_1fjtgsw</bpmn:incoming>
       <bpmn:outgoing>SequenceFlow_1c6amon</bpmn:outgoing>
     </bpmn:serviceTask>
-    <bpmn:sequenceFlow id="SequenceFlow_0miee32" sourceRef="Task_0cosis1" targetRef="Task_0oh67ml" />
     <bpmn:serviceTask id="Task_0cosis1" name="create schematron xslt" camunda:modelerTemplate="tektur.geerate-schematron-xslt" camunda:asyncBefore="true" camunda:asyncAfter="true" camunda:type="external" camunda:topic="generate_schematron_xslt">
       <bpmn:extensionElements>
         <camunda:inputOutput>
@@ -286,7 +256,7 @@
         &lt;/rule&gt;
     &lt;/pattern&gt;
 &lt;/schema&gt;</camunda:inputParameter>
-          <camunda:inputParameter name="schematron-file"></camunda:inputParameter>
+          <camunda:inputParameter name="schematron-file" />
           <camunda:inputParameter name="schematron-xslt">schematron-test.xsl</camunda:inputParameter>
         </camunda:inputOutput>
       </bpmn:extensionElements>
@@ -301,182 +271,391 @@
       </bpmn:extensionElements>
       <bpmn:incoming>SequenceFlow_1l7b21f</bpmn:incoming>
     </bpmn:endEvent>
-    <bpmn:sequenceFlow id="SequenceFlow_1l7b21f" sourceRef="Task_0oh67ml" targetRef="EndEvent_02b8ak9" />
     <bpmn:userTask id="Task_0oh67ml" name="check results">
       <bpmn:incoming>SequenceFlow_0miee32</bpmn:incoming>
       <bpmn:outgoing>SequenceFlow_1l7b21f</bpmn:outgoing>
     </bpmn:userTask>
+    <bpmn:startEvent id="StartEvent_1">
+      <bpmn:extensionElements>
+        <camunda:formData>
+          <camunda:formField id="test" label="test" type="string" />
+        </camunda:formData>
+      </bpmn:extensionElements>
+      <bpmn:outgoing>SequenceFlow_11pbjwo</bpmn:outgoing>
+    </bpmn:startEvent>
+    <bpmn:sequenceFlow id="SequenceFlow_1l7b21f" sourceRef="Task_0oh67ml" targetRef="EndEvent_02b8ak9" />
+    <bpmn:sequenceFlow id="SequenceFlow_0miee32" sourceRef="Task_0cosis1" targetRef="Task_0oh67ml" />
+    <bpmn:sequenceFlow id="SequenceFlow_17kvdl1" sourceRef="Task_0oo63zr" targetRef="Task_0smq08j" />
+    <bpmn:sequenceFlow id="SequenceFlow_1c6amon" sourceRef="Task_0wnekt9" targetRef="Task_0cosis1" />
+    <bpmn:sequenceFlow id="SequenceFlow_1fjtgsw" sourceRef="Task_0smq08j" targetRef="Task_0wnekt9" />
+    <bpmn:sequenceFlow id="SequenceFlow_0v8fx9a" sourceRef="Task_0qhjvnp" targetRef="Task_0zie3is" />
+    <bpmn:sequenceFlow id="SequenceFlow_19el1sx" sourceRef="Task_1ii8nqh" targetRef="Task_0qhjvnp" />
+    <bpmn:sequenceFlow id="SequenceFlow_0jz0t24" sourceRef="Task_03dbwqm" targetRef="Task_1ii8nqh" />
+    <bpmn:sequenceFlow id="SequenceFlow_1f79owo" sourceRef="Task_1of9yep" targetRef="Task_03dbwqm" />
+    <bpmn:sequenceFlow id="SequenceFlow_103eaem" sourceRef="Task_06wi83w" targetRef="Task_1of9yep" />
+    <bpmn:sequenceFlow id="SequenceFlow_05474ph" sourceRef="Task_0m4nx7q" targetRef="Task_06wi83w" />
+    <bpmn:sequenceFlow id="SequenceFlow_18c121e" sourceRef="Task_150say3" targetRef="Task_0m4nx7q" />
+    <bpmn:sequenceFlow id="SequenceFlow_1fn0nza" sourceRef="Task_15rppzx" targetRef="Task_150say3" />
+    <bpmn:sequenceFlow id="SequenceFlow_1j8zdbd" sourceRef="Task_0hg5bxe" targetRef="Task_0qajksg" />
+    <bpmn:sequenceFlow id="SequenceFlow_1fs1yzj" sourceRef="Task_1hbhnut" targetRef="Task_0hg5bxe" />
+    <bpmn:sequenceFlow id="SequenceFlow_094bbxy" sourceRef="Task_049w7j6" targetRef="Task_1hbhnut" />
+    <bpmn:sequenceFlow id="SequenceFlow_1fpkdf4" sourceRef="Task_1k9ktll" targetRef="Task_04c2w9l" />
+    <bpmn:sequenceFlow id="SequenceFlow_1l3t2pe" sourceRef="Task_1pwh6ea" targetRef="Task_049w7j6" />
+    <bpmn:sequenceFlow id="SequenceFlow_1va1iex" sourceRef="Task_04c2w9l" targetRef="Task_1pwh6ea" />
+    <bpmn:sequenceFlow id="SequenceFlow_11pbjwo" sourceRef="StartEvent_1" targetRef="Task_1k4ajla" />
+    <bpmn:sequenceFlow id="SequenceFlow_1ruutix" sourceRef="Task_0qajksg" targetRef="Task_0fnfrqy" />
+    <bpmn:sequenceFlow id="SequenceFlow_1co9sif" sourceRef="Task_0fnfrqy" targetRef="Task_15rppzx" />
+    <bpmn:userTask id="Task_0g894iz" name="check results">
+      <bpmn:incoming>SequenceFlow_14jsw44</bpmn:incoming>
+    </bpmn:userTask>
+    <bpmn:sequenceFlow id="SequenceFlow_14jsw44" sourceRef="ExclusiveGateway_0y9ovrw" targetRef="Task_0g894iz" />
+    <bpmn:sequenceFlow id="SequenceFlow_1bd8p9s" sourceRef="ServiceTask_1sntbh3" targetRef="Task_1k9ktll" />
+    <bpmn:exclusiveGateway id="ExclusiveGateway_0y9ovrw" default="SequenceFlow_14jsw44">
+      <bpmn:incoming>SequenceFlow_01jb1og</bpmn:incoming>
+      <bpmn:outgoing>SequenceFlow_14jsw44</bpmn:outgoing>
+      <bpmn:outgoing>SequenceFlow_18jkzmr</bpmn:outgoing>
+    </bpmn:exclusiveGateway>
+    <bpmn:serviceTask id="ServiceTask_1sntbh3" name="url get" camunda:modelerTemplate="tektur.http-request" camunda:asyncBefore="true" camunda:asyncAfter="true" camunda:type="external" camunda:topic="http_request">
+      <bpmn:extensionElements>
+        <camunda:inputOutput>
+          <camunda:inputParameter name="method">get</camunda:inputParameter>
+          <camunda:inputParameter name="queryParameters">
+            <camunda:map>
+              <camunda:entry key="name">alice</camunda:entry>
+            </camunda:map>
+          </camunda:inputParameter>
+          <camunda:inputParameter name="existPayload" />
+          <camunda:inputParameter name="host">localhost</camunda:inputParameter>
+          <camunda:inputParameter name="port">8080</camunda:inputParameter>
+          <camunda:inputParameter name="responseFilename">url-get-result.xml</camunda:inputParameter>
+          <camunda:inputParameter name="endpoint">exist/rest/db/result/callme.xqy</camunda:inputParameter>
+          <camunda:outputParameter name="status2">${ status }</camunda:outputParameter>
+        </camunda:inputOutput>
+      </bpmn:extensionElements>
+      <bpmn:incoming>SequenceFlow_18jkzmr</bpmn:incoming>
+      <bpmn:outgoing>SequenceFlow_1bd8p9s</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:serviceTask id="ServiceTask_04z5pcx" name="s3 put" camunda:modelerTemplate="tektur.s3-put" camunda:asyncBefore="true" camunda:asyncAfter="true" camunda:type="external" camunda:topic="s3_put">
+      <bpmn:extensionElements>
+        <camunda:inputOutput>
+          <camunda:inputParameter name="bucket">tektur</camunda:inputParameter>
+          <camunda:inputParameter name="location">custom</camunda:inputParameter>
+          <camunda:inputParameter name="key">payload.xml</camunda:inputParameter>
+          <camunda:inputParameter name="filename">c:\test\payload.xml</camunda:inputParameter>
+        </camunda:inputOutput>
+      </bpmn:extensionElements>
+      <bpmn:incoming>SequenceFlow_15bbevz</bpmn:incoming>
+      <bpmn:outgoing>SequenceFlow_0friylv</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:serviceTask id="ServiceTask_1lb5q6j" name="s3 get" camunda:modelerTemplate="tektur.s3-get" camunda:asyncBefore="true" camunda:asyncAfter="true" camunda:type="external" camunda:topic="s3_get">
+      <bpmn:extensionElements>
+        <camunda:inputOutput>
+          <camunda:inputParameter name="bucket">tektur</camunda:inputParameter>
+          <camunda:inputParameter name="key">payload.xml</camunda:inputParameter>
+          <camunda:inputParameter name="filename">payload.xml</camunda:inputParameter>
+        </camunda:inputOutput>
+      </bpmn:extensionElements>
+      <bpmn:incoming>SequenceFlow_0friylv</bpmn:incoming>
+      <bpmn:outgoing>SequenceFlow_09kk16c</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:sequenceFlow id="SequenceFlow_15bbevz" sourceRef="Task_0zie3is" targetRef="ServiceTask_04z5pcx" />
+    <bpmn:sequenceFlow id="SequenceFlow_0friylv" sourceRef="ServiceTask_04z5pcx" targetRef="ServiceTask_1lb5q6j" />
+    <bpmn:sequenceFlow id="SequenceFlow_09kk16c" sourceRef="ServiceTask_1lb5q6j" targetRef="Task_1g3b4uj" />
+    <bpmn:sequenceFlow id="SequenceFlow_0y4dhgb" name="poststatus = &#39;200&#39;" sourceRef="ExclusiveGateway_0px7tsf" targetRef="Task_0oo63zr">
+      <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression">${ poststatus == '200'}</bpmn:conditionExpression>
+    </bpmn:sequenceFlow>
+    <bpmn:exclusiveGateway id="ExclusiveGateway_0px7tsf" default="SequenceFlow_0jl18in">
+      <bpmn:incoming>SequenceFlow_08tnx68</bpmn:incoming>
+      <bpmn:outgoing>SequenceFlow_0y4dhgb</bpmn:outgoing>
+      <bpmn:outgoing>SequenceFlow_0jl18in</bpmn:outgoing>
+    </bpmn:exclusiveGateway>
+    <bpmn:sequenceFlow id="SequenceFlow_0jl18in" sourceRef="ExclusiveGateway_0px7tsf" targetRef="Task_1rs5273" />
+    <bpmn:userTask id="Task_1rs5273" name="check results">
+      <bpmn:incoming>SequenceFlow_0jl18in</bpmn:incoming>
+    </bpmn:userTask>
+    <bpmn:sequenceFlow id="SequenceFlow_08tnx68" sourceRef="Task_1g3b4uj" targetRef="ExclusiveGateway_0px7tsf" />
+    <bpmn:serviceTask id="Task_1g3b4uj" name="url post" camunda:modelerTemplate="tektur.http-request" camunda:asyncBefore="true" camunda:asyncAfter="true" camunda:type="external" camunda:topic="http_request">
+      <bpmn:extensionElements>
+        <camunda:inputOutput>
+          <camunda:inputParameter name="method">get</camunda:inputParameter>
+          <camunda:inputParameter name="queryParameters" />
+          <camunda:inputParameter name="host">localhost</camunda:inputParameter>
+          <camunda:inputParameter name="port">8080</camunda:inputParameter>
+          <camunda:inputParameter name="endpoint">exist/rest/db/</camunda:inputParameter>
+          <camunda:inputParameter name="responseFilename">post-request-result.xml</camunda:inputParameter>
+          <camunda:inputParameter name="existPayload">payload.xml</camunda:inputParameter>
+          <camunda:outputParameter name="poststatus">${ status }</camunda:outputParameter>
+        </camunda:inputOutput>
+      </bpmn:extensionElements>
+      <bpmn:incoming>SequenceFlow_09kk16c</bpmn:incoming>
+      <bpmn:outgoing>SequenceFlow_08tnx68</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:sequenceFlow id="SequenceFlow_01jb1og" sourceRef="Task_1k4ajla" targetRef="ExclusiveGateway_0y9ovrw" />
+    <bpmn:serviceTask id="Task_1k4ajla" name="url get" camunda:modelerTemplate="tektur.http-request" camunda:asyncBefore="true" camunda:asyncAfter="true" camunda:type="external" camunda:topic="http_request">
+      <bpmn:extensionElements>
+        <camunda:inputOutput>
+          <camunda:inputParameter name="method">get</camunda:inputParameter>
+          <camunda:inputParameter name="queryParameters">
+            <camunda:map>
+              <camunda:entry key="name">alice</camunda:entry>
+            </camunda:map>
+          </camunda:inputParameter>
+          <camunda:inputParameter name="existPayload"></camunda:inputParameter>
+          <camunda:inputParameter name="host">localhost</camunda:inputParameter>
+          <camunda:inputParameter name="endpoint">exist/rest/db/result/callmexxx.xqy</camunda:inputParameter>
+          <camunda:inputParameter name="port">8080</camunda:inputParameter>
+          <camunda:inputParameter name="responseFilename">url-get-result</camunda:inputParameter>
+          <camunda:outputParameter name="status">${ status }</camunda:outputParameter>
+        </camunda:inputOutput>
+      </bpmn:extensionElements>
+      <bpmn:incoming>SequenceFlow_11pbjwo</bpmn:incoming>
+      <bpmn:outgoing>SequenceFlow_01jb1og</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:sequenceFlow id="SequenceFlow_18jkzmr" sourceRef="ExclusiveGateway_0y9ovrw" targetRef="ServiceTask_1sntbh3">
+      <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression">${ status != '200' }</bpmn:conditionExpression>
+    </bpmn:sequenceFlow>
   </bpmn:process>
   <bpmndi:BPMNDiagram id="BPMNDiagram_1">
     <bpmndi:BPMNPlane id="BPMNPlane_1" bpmnElement="Collaboration_0nrr462">
       <bpmndi:BPMNShape id="Participant_1junhp7_di" bpmnElement="Participant_1junhp7" isHorizontal="true">
-        <dc:Bounds x="160" y="40" width="880" height="670" />
+        <dc:Bounds x="170" y="80" width="920" height="880" />
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="_BPMNShape_StartEvent_2" bpmnElement="StartEvent_1">
-        <dc:Bounds x="231" y="98" width="36" height="36" />
+        <dc:Bounds x="241" y="132" width="36" height="36" />
       </bpmndi:BPMNShape>
       <bpmndi:BPMNEdge id="SequenceFlow_11pbjwo_di" bpmnElement="SequenceFlow_11pbjwo">
-        <di:waypoint x="267" y="116" />
-        <di:waypoint x="309" y="116" />
+        <di:waypoint x="277" y="150" />
+        <di:waypoint x="321" y="150" />
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNShape id="ServiceTask_0hu29ne_di" bpmnElement="Task_04c2w9l">
-        <dc:Bounds x="439" y="76" width="100" height="80" />
+        <dc:Bounds x="449" y="246" width="100" height="80" />
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="EndEvent_02b8ak9_di" bpmnElement="EndEvent_02b8ak9">
-        <dc:Bounds x="872" y="228" width="36" height="36" />
+        <dc:Bounds x="882" y="398" width="36" height="36" />
       </bpmndi:BPMNShape>
       <bpmndi:BPMNEdge id="SequenceFlow_1va1iex_di" bpmnElement="SequenceFlow_1va1iex">
-        <di:waypoint x="539" y="116" />
-        <di:waypoint x="569" y="116" />
+        <di:waypoint x="549" y="286" />
+        <di:waypoint x="579" y="286" />
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNShape id="ServiceTask_1ln69gv_di" bpmnElement="Task_049w7j6">
-        <dc:Bounds x="699" y="76" width="100" height="80" />
+        <dc:Bounds x="709" y="246" width="100" height="80" />
       </bpmndi:BPMNShape>
       <bpmndi:BPMNEdge id="SequenceFlow_1l3t2pe_di" bpmnElement="SequenceFlow_1l3t2pe">
-        <di:waypoint x="669" y="116" />
-        <di:waypoint x="699" y="116" />
+        <di:waypoint x="679" y="286" />
+        <di:waypoint x="709" y="286" />
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNShape id="ServiceTask_1ns8rnc_di" bpmnElement="Task_1pwh6ea">
-        <dc:Bounds x="569" y="76" width="100" height="80" />
+        <dc:Bounds x="579" y="246" width="100" height="80" />
       </bpmndi:BPMNShape>
       <bpmndi:BPMNEdge id="SequenceFlow_1fpkdf4_di" bpmnElement="SequenceFlow_1fpkdf4">
-        <di:waypoint x="409" y="116" />
-        <di:waypoint x="439" y="116" />
+        <di:waypoint x="419" y="286" />
+        <di:waypoint x="449" y="286" />
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNShape id="ServiceTask_01inaoo_di" bpmnElement="Task_1k9ktll">
-        <dc:Bounds x="309" y="76" width="100" height="80" />
+        <dc:Bounds x="319" y="246" width="100" height="80" />
       </bpmndi:BPMNShape>
       <bpmndi:BPMNEdge id="SequenceFlow_094bbxy_di" bpmnElement="SequenceFlow_094bbxy">
-        <di:waypoint x="749" y="156" />
-        <di:waypoint x="749" y="206" />
+        <di:waypoint x="759" y="326" />
+        <di:waypoint x="759" y="376" />
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNShape id="ServiceTask_1hloyop_di" bpmnElement="Task_1hbhnut">
-        <dc:Bounds x="699" y="206" width="100" height="80" />
+        <dc:Bounds x="709" y="376" width="100" height="80" />
       </bpmndi:BPMNShape>
       <bpmndi:BPMNEdge id="SequenceFlow_1fs1yzj_di" bpmnElement="SequenceFlow_1fs1yzj">
-        <di:waypoint x="699" y="246" />
-        <di:waypoint x="669" y="246" />
+        <di:waypoint x="709" y="416" />
+        <di:waypoint x="679" y="416" />
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge id="SequenceFlow_1j8zdbd_di" bpmnElement="SequenceFlow_1j8zdbd">
-        <di:waypoint x="569" y="246" />
-        <di:waypoint x="539" y="246" />
+        <di:waypoint x="579" y="416" />
+        <di:waypoint x="549" y="416" />
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNShape id="ServiceTask_03ku8ry_di" bpmnElement="Task_0hg5bxe">
-        <dc:Bounds x="569" y="206" width="100" height="80" />
+        <dc:Bounds x="579" y="376" width="100" height="80" />
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="ServiceTask_0pj97da_di" bpmnElement="Task_0qajksg">
-        <dc:Bounds x="439" y="206" width="100" height="80" />
+        <dc:Bounds x="449" y="376" width="100" height="80" />
       </bpmndi:BPMNShape>
       <bpmndi:BPMNEdge id="SequenceFlow_1ruutix_di" bpmnElement="SequenceFlow_1ruutix">
-        <di:waypoint x="439" y="246" />
-        <di:waypoint x="409" y="246" />
+        <di:waypoint x="449" y="416" />
+        <di:waypoint x="419" y="416" />
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNShape id="ServiceTask_1up1k08_di" bpmnElement="Task_0fnfrqy">
-        <dc:Bounds x="309" y="206" width="100" height="80" />
+        <dc:Bounds x="319" y="376" width="100" height="80" />
       </bpmndi:BPMNShape>
       <bpmndi:BPMNEdge id="SequenceFlow_1co9sif_di" bpmnElement="SequenceFlow_1co9sif">
-        <di:waypoint x="359" y="286" />
-        <di:waypoint x="359" y="330" />
+        <di:waypoint x="369" y="456" />
+        <di:waypoint x="369" y="500" />
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNShape id="ServiceTask_086p9zw_di" bpmnElement="Task_15rppzx">
-        <dc:Bounds x="309" y="330" width="100" height="80" />
+        <dc:Bounds x="319" y="500" width="100" height="80" />
       </bpmndi:BPMNShape>
       <bpmndi:BPMNEdge id="SequenceFlow_1fn0nza_di" bpmnElement="SequenceFlow_1fn0nza">
-        <di:waypoint x="409" y="370" />
-        <di:waypoint x="439" y="370" />
+        <di:waypoint x="419" y="540" />
+        <di:waypoint x="449" y="540" />
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNShape id="ServiceTask_017qcll_di" bpmnElement="Task_150say3">
-        <dc:Bounds x="439" y="330" width="100" height="80" />
+        <dc:Bounds x="449" y="500" width="100" height="80" />
       </bpmndi:BPMNShape>
       <bpmndi:BPMNEdge id="SequenceFlow_18c121e_di" bpmnElement="SequenceFlow_18c121e">
-        <di:waypoint x="539" y="370" />
-        <di:waypoint x="569" y="370" />
+        <di:waypoint x="549" y="540" />
+        <di:waypoint x="579" y="540" />
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNShape id="ServiceTask_154piuc_di" bpmnElement="Task_0m4nx7q">
-        <dc:Bounds x="569" y="330" width="100" height="80" />
+        <dc:Bounds x="579" y="500" width="100" height="80" />
       </bpmndi:BPMNShape>
       <bpmndi:BPMNEdge id="SequenceFlow_05474ph_di" bpmnElement="SequenceFlow_05474ph">
-        <di:waypoint x="669" y="370" />
-        <di:waypoint x="699" y="370" />
+        <di:waypoint x="679" y="540" />
+        <di:waypoint x="709" y="540" />
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNShape id="ServiceTask_02hbhs6_di" bpmnElement="Task_06wi83w">
-        <dc:Bounds x="699" y="330" width="100" height="80" />
+        <dc:Bounds x="709" y="500" width="100" height="80" />
       </bpmndi:BPMNShape>
       <bpmndi:BPMNEdge id="SequenceFlow_103eaem_di" bpmnElement="SequenceFlow_103eaem">
-        <di:waypoint x="749" y="410" />
-        <di:waypoint x="749" y="450" />
+        <di:waypoint x="759" y="580" />
+        <di:waypoint x="759" y="620" />
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNShape id="ServiceTask_05ramlb_di" bpmnElement="Task_1of9yep">
-        <dc:Bounds x="699" y="450" width="100" height="80" />
+        <dc:Bounds x="709" y="620" width="100" height="80" />
       </bpmndi:BPMNShape>
       <bpmndi:BPMNEdge id="SequenceFlow_1f79owo_di" bpmnElement="SequenceFlow_1f79owo">
-        <di:waypoint x="699" y="490" />
-        <di:waypoint x="669" y="490" />
+        <di:waypoint x="709" y="660" />
+        <di:waypoint x="679" y="660" />
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNShape id="ServiceTask_1gtitta_di" bpmnElement="Task_03dbwqm">
-        <dc:Bounds x="569" y="450" width="100" height="80" />
+        <dc:Bounds x="579" y="620" width="100" height="80" />
       </bpmndi:BPMNShape>
       <bpmndi:BPMNEdge id="SequenceFlow_0jz0t24_di" bpmnElement="SequenceFlow_0jz0t24">
-        <di:waypoint x="569" y="490" />
-        <di:waypoint x="539" y="490" />
+        <di:waypoint x="579" y="660" />
+        <di:waypoint x="549" y="660" />
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNShape id="ServiceTask_058q1h6_di" bpmnElement="Task_1ii8nqh">
-        <dc:Bounds x="439" y="450" width="100" height="80" />
+        <dc:Bounds x="449" y="620" width="100" height="80" />
       </bpmndi:BPMNShape>
       <bpmndi:BPMNEdge id="SequenceFlow_19el1sx_di" bpmnElement="SequenceFlow_19el1sx">
-        <di:waypoint x="439" y="490" />
-        <di:waypoint x="409" y="490" />
+        <di:waypoint x="449" y="660" />
+        <di:waypoint x="419" y="660" />
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge id="SequenceFlow_0v8fx9a_di" bpmnElement="SequenceFlow_0v8fx9a">
-        <di:waypoint x="359" y="530" />
-        <di:waypoint x="359" y="560" />
+        <di:waypoint x="369" y="700" />
+        <di:waypoint x="369" y="730" />
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNShape id="ServiceTask_1j5n2cq_di" bpmnElement="Task_0qhjvnp">
-        <dc:Bounds x="309" y="450" width="100" height="80" />
+        <dc:Bounds x="319" y="620" width="100" height="80" />
       </bpmndi:BPMNShape>
-      <bpmndi:BPMNEdge id="SequenceFlow_1uxfq6f_di" bpmnElement="SequenceFlow_1uxfq6f">
-        <di:waypoint x="409" y="600" />
-        <di:waypoint x="439" y="600" />
-      </bpmndi:BPMNEdge>
       <bpmndi:BPMNShape id="ServiceTask_1hl3jnk_di" bpmnElement="Task_0zie3is">
-        <dc:Bounds x="309" y="560" width="100" height="80" />
+        <dc:Bounds x="319" y="730" width="100" height="80" />
       </bpmndi:BPMNShape>
       <bpmndi:BPMNEdge id="SequenceFlow_1fjtgsw_di" bpmnElement="SequenceFlow_1fjtgsw">
-        <di:waypoint x="669" y="600" />
-        <di:waypoint x="699" y="600" />
+        <di:waypoint x="679" y="770" />
+        <di:waypoint x="709" y="770" />
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNShape id="ServiceTask_005qljq_di" bpmnElement="Task_0smq08j">
-        <dc:Bounds x="569" y="560" width="100" height="80" />
+        <dc:Bounds x="579" y="730" width="100" height="80" />
       </bpmndi:BPMNShape>
       <bpmndi:BPMNEdge id="SequenceFlow_1c6amon_di" bpmnElement="SequenceFlow_1c6amon">
-        <di:waypoint x="799" y="600" />
-        <di:waypoint x="890" y="600" />
-        <di:waypoint x="890" y="530" />
+        <di:waypoint x="809" y="770" />
+        <di:waypoint x="900" y="770" />
+        <di:waypoint x="900" y="700" />
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNShape id="ServiceTask_1056nw4_di" bpmnElement="Task_0wnekt9">
-        <dc:Bounds x="699" y="560" width="100" height="80" />
+        <dc:Bounds x="709" y="730" width="100" height="80" />
       </bpmndi:BPMNShape>
       <bpmndi:BPMNEdge id="SequenceFlow_17kvdl1_di" bpmnElement="SequenceFlow_17kvdl1">
-        <di:waypoint x="539" y="600" />
-        <di:waypoint x="569" y="600" />
+        <di:waypoint x="549" y="770" />
+        <di:waypoint x="579" y="770" />
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNShape id="ServiceTask_1ufesoj_di" bpmnElement="Task_0oo63zr">
-        <dc:Bounds x="439" y="560" width="100" height="80" />
+        <dc:Bounds x="449" y="730" width="100" height="80" />
       </bpmndi:BPMNShape>
       <bpmndi:BPMNEdge id="SequenceFlow_0miee32_di" bpmnElement="SequenceFlow_0miee32">
-        <di:waypoint x="890" y="450" />
-        <di:waypoint x="890" y="410" />
+        <di:waypoint x="900" y="620" />
+        <di:waypoint x="900" y="580" />
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNShape id="ServiceTask_1szq18w_di" bpmnElement="Task_0cosis1">
-        <dc:Bounds x="840" y="450" width="100" height="80" />
+        <dc:Bounds x="850" y="620" width="100" height="80" />
       </bpmndi:BPMNShape>
       <bpmndi:BPMNEdge id="SequenceFlow_1l7b21f_di" bpmnElement="SequenceFlow_1l7b21f">
-        <di:waypoint x="890" y="330" />
-        <di:waypoint x="890" y="264" />
+        <di:waypoint x="900" y="500" />
+        <di:waypoint x="900" y="434" />
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNShape id="UserTask_03js06f_di" bpmnElement="Task_0oh67ml">
-        <dc:Bounds x="840" y="330" width="100" height="80" />
+        <dc:Bounds x="850" y="500" width="100" height="80" />
       </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="UserTask_0o98cjt_di" bpmnElement="Task_0g894iz">
+        <dc:Bounds x="709" y="90" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="ServiceTask_1sntbh3_di" bpmnElement="ServiceTask_1sntbh3">
+        <dc:Bounds x="579" y="150" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="ExclusiveGateway_0y9ovrw_di" bpmnElement="ExclusiveGateway_0y9ovrw" isMarkerVisible="true">
+        <dc:Bounds x="465" y="105" width="50" height="50" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge id="SequenceFlow_14jsw44_di" bpmnElement="SequenceFlow_14jsw44">
+        <di:waypoint x="495" y="110" />
+        <di:waypoint x="709" y="110" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="SequenceFlow_1bd8p9s_di" bpmnElement="SequenceFlow_1bd8p9s">
+        <di:waypoint x="579" y="190" />
+        <di:waypoint x="440" y="190" />
+        <di:waypoint x="440" y="256" />
+        <di:waypoint x="419" y="256" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNShape id="ServiceTask_04z5pcx_di" bpmnElement="ServiceTask_04z5pcx">
+        <dc:Bounds x="319" y="850" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="ServiceTask_1lb5q6j_di" bpmnElement="ServiceTask_1lb5q6j">
+        <dc:Bounds x="449" y="850" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge id="SequenceFlow_15bbevz_di" bpmnElement="SequenceFlow_15bbevz">
+        <di:waypoint x="369" y="810" />
+        <di:waypoint x="369" y="850" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="SequenceFlow_0friylv_di" bpmnElement="SequenceFlow_0friylv">
+        <di:waypoint x="419" y="890" />
+        <di:waypoint x="449" y="890" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="SequenceFlow_09kk16c_di" bpmnElement="SequenceFlow_09kk16c">
+        <di:waypoint x="549" y="890" />
+        <di:waypoint x="600" y="890" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="SequenceFlow_0y4dhgb_di" bpmnElement="SequenceFlow_0y4dhgb">
+        <di:waypoint x="780" y="865" />
+        <di:waypoint x="780" y="830" />
+        <di:waypoint x="539" y="830" />
+        <di:waypoint x="539" y="810" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="619" y="812" width="86" height="14" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNShape id="ExclusiveGateway_0px7tsf_di" bpmnElement="ExclusiveGateway_0px7tsf" isMarkerVisible="true">
+        <dc:Bounds x="755" y="865" width="50" height="50" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge id="SequenceFlow_0jl18in_di" bpmnElement="SequenceFlow_0jl18in">
+        <di:waypoint x="805" y="890" />
+        <di:waypoint x="860" y="890" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNShape id="UserTask_0l59oee_di" bpmnElement="Task_1rs5273">
+        <dc:Bounds x="860" y="850" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge id="SequenceFlow_08tnx68_di" bpmnElement="SequenceFlow_08tnx68">
+        <di:waypoint x="700" y="890" />
+        <di:waypoint x="755" y="890" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNShape id="ServiceTask_01daoi4_di" bpmnElement="Task_1g3b4uj">
+        <dc:Bounds x="600" y="850" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge id="SequenceFlow_01jb1og_di" bpmnElement="SequenceFlow_01jb1og">
+        <di:waypoint x="421" y="130" />
+        <di:waypoint x="465" y="130" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNShape id="ServiceTask_09eij71_di" bpmnElement="Task_1k4ajla">
+        <dc:Bounds x="321" y="110" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge id="SequenceFlow_18jkzmr_di" bpmnElement="SequenceFlow_18jkzmr">
+        <di:waypoint x="490" y="155" />
+        <di:waypoint x="490" y="170" />
+        <di:waypoint x="579" y="170" />
+      </bpmndi:BPMNEdge>
     </bpmndi:BPMNPlane>
   </bpmndi:BPMNDiagram>
 </bpmn:definitions>

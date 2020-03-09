@@ -135,15 +135,15 @@
 				}
 			},
 			{ 
-				"label": "JSONfile",
+				"label": "XML exist-DB payload",
 				"type": "String",
 				"value": "",
 				"editable": true,
 				"binding": {
 					"type": "camunda:inputParameter",
-					"name": "JSONfile"
+					"name": "existPayload"
 				},
-				"description": "JSON to send, as a file",
+				"description": "XML Query for exist-DB for POST request",
 				"constraints": {
 					
 				}
@@ -158,6 +158,20 @@
 					"name": "responseFilename"
 				},
 				"description": "Name of file to write response to",
+				"constraints": {
+					
+				}
+			},
+			{
+				"label": "status",
+				"type": "String",
+				"value": "",
+				"editable": false,
+				"binding": {
+					"type": "camunda:outputParameter",
+					"source": "${ status }"
+				},
+				"description": "Status code of the HTTP response",
 				"constraints": {
 					
 				}
