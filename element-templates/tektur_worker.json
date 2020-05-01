@@ -76,7 +76,7 @@
 						"name": "POST",
 						"value": "post"
 					}
-				] 
+				]
 			},
 			{
 				"label": "host",
@@ -134,7 +134,7 @@
 					
 				}
 			},
-			{ 
+			{
 				"label": "XML exist-DB payload",
 				"type": "String",
 				"value": "",
@@ -1061,7 +1061,7 @@
 				"constraints": {
 					
 				}
-			},			
+			},
 			{
 				"label": "valid",
 				"type": "String",
@@ -1160,7 +1160,7 @@
 				"constraints": {
 					
 				}
-			},			
+			},
 			{
 				"label": "output-folder",
 				"type": "String",
@@ -1174,7 +1174,7 @@
 				"constraints": {
 					
 				}
-			},			
+			},
 			{
 				"label": "encoding",
 				"type": "String",
@@ -1188,7 +1188,7 @@
 				"constraints": {
 					
 				}
-			}			
+			}
 		]
 	},
 	{
@@ -1470,91 +1470,90 @@
 			}
 		]
 	},
-	
-{
-	"name": "move-folder",
-	"id": "tektur.move-folder",
-	"appliesTo": [
-		"bpmn:ServiceTask"
-	],
-	"entriesVisible": {
-		"multiInstance-loopCardinality": true,
-		"parameterType-text": true,
-		"parameterType": true,
-		"parameterType-script": true,
-		"parameterType-map": true,
-		"_all": false,
-		"outputs": true,
-		"parameterType-list": true,
-		"parameterName": true,
-		"inputs": true,
-		"multiInstance-elementVariable": true,
-		"multiInstance-collection": true
-	},
-	"properties": [
-		{
-			"binding": {
-				"name": "camunda:type",
-				"type": "property"
-			},
-			"type": "Hidden",
-			"value": "external"
+	{
+		"name": "move-folder",
+		"id": "tektur.move-folder",
+		"appliesTo": [
+			"bpmn:ServiceTask"
+		],
+		"entriesVisible": {
+			"multiInstance-loopCardinality": true,
+			"parameterType-text": true,
+			"parameterType": true,
+			"parameterType-script": true,
+			"parameterType-map": true,
+			"_all": false,
+			"outputs": true,
+			"parameterType-list": true,
+			"parameterName": true,
+			"inputs": true,
+			"multiInstance-elementVariable": true,
+			"multiInstance-collection": true
 		},
-		{
-			"binding": {
-				"name": "camunda:topic",
-				"type": "property"
+		"properties": [
+			{
+				"binding": {
+					"name": "camunda:type",
+					"type": "property"
+				},
+				"type": "Hidden",
+				"value": "external"
 			},
-			"label": "Topic",
-			"type": "String",
-			"description": "Task implementation to be executed",
-			"value": "move_folder"
-		},
-		{
-			"binding": {
-				"name": "camunda:asyncBefore",
-				"type": "property"
+			{
+				"binding": {
+					"name": "camunda:topic",
+					"type": "property"
+				},
+				"label": "Topic",
+				"type": "String",
+				"description": "Task implementation to be executed",
+				"value": "move_folder"
 			},
-			"type": "Hidden",
-			"value": true
-		},
-		{
-			"binding": {
-				"name": "camunda:asyncAfter",
-				"type": "property"
+			{
+				"binding": {
+					"name": "camunda:asyncBefore",
+					"type": "property"
+				},
+				"type": "Hidden",
+				"value": true
 			},
-			"type": "Hidden",
-			"value": true
-		},
-		{
-			"label": "Source folder",
-			"type": "String",
-			"value": "",
-			"editable": true,
-			"binding": {
-				"type": "camunda:inputParameter",
-				"name": "source-folder"
+			{
+				"binding": {
+					"name": "camunda:asyncAfter",
+					"type": "property"
+				},
+				"type": "Hidden",
+				"value": true
 			},
-			"description": "Name of the folder to move.",
-			"constraints": {
-				
-			}
-		},
-				{
-			"label": "Destination folder",
-			"type": "String",
-			"value": "",
-			"editable": true,
-			"binding": {
-				"type": "camunda:inputParameter",
-				"name": "destination-folder"
+			{
+				"label": "Source folder",
+				"type": "String",
+				"value": "",
+				"editable": true,
+				"binding": {
+					"type": "camunda:inputParameter",
+					"name": "source-folder"
+				},
+				"description": "Name of the folder to move.",
+				"constraints": {
+					
+				}
 			},
-			"description": "Path to the desitnation folder",
-			"constraints": {
-				
-			}
-		},
-		{
+			{
+				"label": "Destination folder",
+				"type": "String",
+				"value": "",
+				"editable": true,
+				"binding": {
+					"type": "camunda:inputParameter",
+					"name": "destination-folder"
+				},
+				"description": "Path to the desitnation folder",
+				"constraints": {
+					
+				}
+			},
+			{
 				"label": "location",
 				"type": "Dropdown",
 				"value": "process",
@@ -1578,7 +1577,7 @@
 					}
 				]
 			},
-					{
+			{
 				"label": "Delete",
 				"type": "Dropdown",
 				"value": "yes",
@@ -1602,150 +1601,346 @@
 					}
 				]
 			}
-		
-		
-	]
-},
-		{
-				"name": "make-path",
-				"id": "tektur.make-path",
-				"appliesTo": [
-					"bpmn:ServiceTask"
-				],
-				"entriesVisible": {
-				"multiInstance-loopCardinality": true,
-				"parameterType-text": true,
-				"parameterType": true,
-				"parameterType-script": true,
-				"parameterType-map": true,
-				"_all": false,
-				"outputs": true,
-				"parameterType-list": true,
-				"parameterName": true,
-				"inputs": true,
-				"multiInstance-elementVariable": true,
-				"multiInstance-collection": true
+		]
+	},
+	{
+		"name": "make-path",
+		"id": "tektur.make-path",
+		"appliesTo": [
+			"bpmn:ServiceTask"
+		],
+		"entriesVisible": {
+			"multiInstance-loopCardinality": true,
+			"parameterType-text": true,
+			"parameterType": true,
+			"parameterType-script": true,
+			"parameterType-map": true,
+			"_all": false,
+			"outputs": true,
+			"parameterType-list": true,
+			"parameterName": true,
+			"inputs": true,
+			"multiInstance-elementVariable": true,
+			"multiInstance-collection": true
+		},
+		"properties": [
+			{
+				"binding": {
+					"name": "camunda:type",
+					"type": "property"
+				},
+				"type": "Hidden",
+				"value": "external"
 			},
-			"properties": [
-				{
-					"binding": {
-						"name": "camunda:type",
-						"type": "property"
-					},
-					"type": "Hidden",
-					"value": "external"
+			{
+				"binding": {
+					"name": "camunda:topic",
+					"type": "property"
 				},
-				{
-					"binding": {
-						"name": "camunda:topic",
-						"type": "property"
-					},
-					"label": "Topic",
-					"type": "String",
-					"description": "Task implementation to be executed",
-					"value": "make_path"
-				},
-				{
-					"binding": {
-						"name": "camunda:asyncBefore",
-						"type": "property"
-					},
-					"type": "Hidden",
-					"value": true
-				},
-				{
-					"binding": {
-						"name": "camunda:asyncAfter",
-						"type": "property"
-					},
-					"type": "Hidden",
-					"value": true
-				},
-				{
-					"label": "Path to be created",
-					"type": "String",
-					"value": "",
-					"editable": true,
-					"binding": {
-						"type": "camunda:inputParameter",
-						"name": "path"
-					},
-					"description": "Name of the folder structure to be creaated.",
-					"constraints": {
-					
-			}
-		}
-	]
-},
-		{
-				"name": "delete-path",
-				"id": "tektur.delete-path",
-				"appliesTo": [
-					"bpmn:ServiceTask"
-				],
-				"entriesVisible": {
-				"multiInstance-loopCardinality": true,
-				"parameterType-text": true,
-				"parameterType": true,
-				"parameterType-script": true,
-				"parameterType-map": true,
-				"_all": false,
-				"outputs": true,
-				"parameterType-list": true,
-				"parameterName": true,
-				"inputs": true,
-				"multiInstance-elementVariable": true,
-				"multiInstance-collection": true
+				"label": "Topic",
+				"type": "String",
+				"description": "Task implementation to be executed",
+				"value": "make_path"
 			},
-			"properties": [
-				{
-					"binding": {
-						"name": "camunda:type",
-						"type": "property"
-					},
-					"type": "Hidden",
-					"value": "external"
+			{
+				"binding": {
+					"name": "camunda:asyncBefore",
+					"type": "property"
 				},
-				{
-					"binding": {
-						"name": "camunda:topic",
-						"type": "property"
-					},
-					"label": "Topic",
-					"type": "String",
-					"description": "Task implementation to be executed",
-					"value": "delete_path"
+				"type": "Hidden",
+				"value": true
+			},
+			{
+				"binding": {
+					"name": "camunda:asyncAfter",
+					"type": "property"
 				},
-				{
-					"binding": {
-						"name": "camunda:asyncBefore",
-						"type": "property"
-					},
-					"type": "Hidden",
-					"value": true
+				"type": "Hidden",
+				"value": true
+			},
+			{
+				"label": "Path to be created",
+				"type": "String",
+				"value": "",
+				"editable": true,
+				"binding": {
+					"type": "camunda:inputParameter",
+					"name": "path"
 				},
-				{
-					"binding": {
-						"name": "camunda:asyncAfter",
-						"type": "property"
-					},
-					"type": "Hidden",
-					"value": true
-				},
-				{
-					"label": "Path to be deleted",
-					"type": "String",
-					"value": "",
-					"editable": true,
-					"binding": {
-						"type": "camunda:inputParameter",
-						"name": "path"
-					},
-					"description": "Name of the folder structure to be deleted.",
-					"constraints": {
+				"description": "Name of the folder structure to be creaated.",
+				"constraints": {
 					
+				}
 			}
-		}
-    ]
-}			
+		]
+	},
+	{
+		"name": "delete-path",
+		"id": "tektur.delete-path",
+		"appliesTo": [
+			"bpmn:ServiceTask"
+		],
+		"entriesVisible": {
+			"multiInstance-loopCardinality": true,
+			"parameterType-text": true,
+			"parameterType": true,
+			"parameterType-script": true,
+			"parameterType-map": true,
+			"_all": false,
+			"outputs": true,
+			"parameterType-list": true,
+			"parameterName": true,
+			"inputs": true,
+			"multiInstance-elementVariable": true,
+			"multiInstance-collection": true
+		},
+		"properties": [
+			{
+				"binding": {
+					"name": "camunda:type",
+					"type": "property"
+				},
+				"type": "Hidden",
+				"value": "external"
+			},
+			{
+				"binding": {
+					"name": "camunda:topic",
+					"type": "property"
+				},
+				"label": "Topic",
+				"type": "String",
+				"description": "Task implementation to be executed",
+				"value": "delete_path"
+			},
+			{
+				"binding": {
+					"name": "camunda:asyncBefore",
+					"type": "property"
+				},
+				"type": "Hidden",
+				"value": true
+			},
+			{
+				"binding": {
+					"name": "camunda:asyncAfter",
+					"type": "property"
+				},
+				"type": "Hidden",
+				"value": true
+			},
+			{
+				"label": "Path to be deleted",
+				"type": "String",
+				"value": "",
+				"editable": true,
+				"binding": {
+					"type": "camunda:inputParameter",
+					"name": "path"
+				},
+				"description": "Name of the folder structure to be deleted.",
+				"constraints": {
+					
+				}
+			}
+		]
+	},
+	{
+		"name": "compare-xml",
+		"id": "tektur.compare-xml",
+		"appliesTo": [
+			"bpmn:ServiceTask"
+		],
+		"entriesVisible": {
+			"multiInstance-loopCardinality": true,
+			"parameterType-text": true,
+			"parameterType": true,
+			"parameterType-script": true,
+			"parameterType-map": true,
+			"_all": false,
+			"outputs": true,
+			"parameterType-list": true,
+			"parameterName": true,
+			"inputs": true,
+			"multiInstance-elementVariable": true,
+			"multiInstance-collection": true
+		},
+		"properties": [
+			{
+				"binding": {
+					"name": "camunda:type",
+					"type": "property"
+				},
+				"type": "Hidden",
+				"value": "external"
+			},
+			{
+				"binding": {
+					"name": "camunda:topic",
+					"type": "property"
+				},
+				"label": "Topic",
+				"type": "String",
+				"description": "Task implementation to be executed",
+				"value": "compare_xml"
+			},
+			{
+				"binding": {
+					"name": "camunda:asyncBefore",
+					"type": "property"
+				},
+				"type": "Hidden",
+				"value": true
+			},
+			{
+				"binding": {
+					"name": "camunda:asyncAfter",
+					"type": "property"
+				},
+				"type": "Hidden",
+				"value": true
+			},
+			{
+				"label": "source file",
+				"type": "String",
+				"value": "",
+				"editable": true,
+				"binding": {
+					"type": "camunda:inputParameter",
+					"name": "source-file"
+				},
+				"description": "The name of the xml file that is going to be compared.",
+				"constraints": {
+					
+				}
+			},
+			{
+				"label": "file to compare to",
+				"type": "String",
+				"value": "",
+				"editable": true,
+				"binding": {
+					"type": "camunda:inputParameter",
+					"name": "file-to-compare-to"
+				},
+				"description": "The name of the other file.",
+				"constraints": {
+					
+				}
+			},
+			{
+				"label": "differ",
+				"type": "String",
+				"value": "",
+				"editable": false,
+				"binding": {
+					"type": "camunda:outputParameter",
+					"source": "${ differ }"
+				},
+				"description": "Output bool variable containing the result of the diffing process",
+				"constraints": {
+					
+				}
+			}
+		]
+	},
+	{
+		"name": "batch-compare-xml",
+		"id": "tektur.batch-compare-xml",
+		"appliesTo": [
+			"bpmn:ServiceTask"
+		],
+		"entriesVisible": {
+			"multiInstance-loopCardinality": true,
+			"parameterType-text": true,
+			"parameterType": true,
+			"parameterType-script": true,
+			"parameterType-map": true,
+			"_all": false,
+			"outputs": true,
+			"parameterType-list": true,
+			"parameterName": true,
+			"inputs": true,
+			"multiInstance-elementVariable": true,
+			"multiInstance-collection": true
+		},
+		"properties": [
+			{
+				"binding": {
+					"name": "camunda:type",
+					"type": "property"
+				},
+				"type": "Hidden",
+				"value": "external"
+			},
+			{
+				"binding": {
+					"name": "camunda:topic",
+					"type": "property"
+				},
+				"label": "Topic",
+				"type": "String",
+				"description": "Task implementation to be executed",
+				"value": "batch_compare_xml"
+			},
+			{
+				"binding": {
+					"name": "camunda:asyncBefore",
+					"type": "property"
+				},
+				"type": "Hidden",
+				"value": true
+			},
+			{
+				"binding": {
+					"name": "camunda:asyncAfter",
+					"type": "property"
+				},
+				"type": "Hidden",
+				"value": true
+			},
+			{
+				"label": "source folder",
+				"type": "String",
+				"value": "",
+				"editable": true,
+				"binding": {
+					"type": "camunda:inputParameter",
+					"name": "source-folder"
+				},
+				"description": "The name of the folder that is going to be compared.",
+				"constraints": {
+					
+				}
+			},
+			{
+				"label": "folder to compare to",
+				"type": "String",
+				"value": "",
+				"editable": true,
+				"binding": {
+					"type": "camunda:inputParameter",
+					"name": "folder-to-compare-to"
+				},
+				"description": "The name of the other folder.",
+				"constraints": {
+					
+				}
+			},
+			{
+				"label": "delta",
+				"type": "String",
+				"value": "",
+				"editable": false,
+				"binding": {
+					"type": "camunda:outputParameter",
+					"source": "${ delta }"
+				},
+				"description": "Output variable containing the list of filenames of the xml files that differ.",
+				"constraints": {
+					
+				}
+			}
+		]
+	}
 ]

@@ -21,6 +21,7 @@ from tasks.mail import send_mail
 from tasks.transform import transform_xml, batch_transform_xml, batch_tidy_html
 from tasks.validate import batch_validate_xml, generate_schematron_xslt
 from tasks.zip import file_unzip, file_zip
-from tasks.pathio import make_path, move_folder, delete_path
+from tasks.pathio import make_path, move_folder, delete_path, write_data
+from tasks.diff import batch_compare_xml, compare_xml
 
     

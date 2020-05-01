@@ -66,11 +66,9 @@ def http_request(process_dir, variables):
           variables["host"]["value"] + ":" + \
           variables["port"]["value"] + "/" + \
           variables["endpoint"]["value"] 
-    print (str(variables)) 
     if variables["existPayload"]["value"]:
         try:
             payload = open(os.path.join(process_dir, variables["existPayload"]["value"]), "r").read()
-            print(payload)
         except Exception as err:
             raise TaskError("HTTP Error! Cannot read request data", str(err)) 
     else:

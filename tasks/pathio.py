@@ -97,7 +97,3 @@ def delete_path(process_dir, variables):
     path = os.path.join(process_dir, variables["path"]["value"])
     shutil.rmtree(path, ignore_errors=True)
     return {}
-    
-    
-  
- 
