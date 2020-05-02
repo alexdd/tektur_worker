@@ -97,3 +97,38 @@ def delete_path(process_dir, variables):
     path = os.path.join(process_dir, variables["path"]["value"])
     shutil.rmtree(path, ignore_errors=True)
     return {}
+
+def write_data(process_dir, variables):
+    
+    """This task writes string data to a file
+
+    Attributes:
+        process_dir -- the generated working directory of the calling process
+        variables -- a dictionary containing key-value pairs passed from Camunda
+    Camunda Parameters:
+        ["path"] -- The relative path write the data to
+        ["data"] -- The string to be written to the filesystem
+    """
+    
+    path = os.path.join(process_dir, variables["path"]["value"])
+    data = str(variables["data"]["value"])
+    os.makedirs(os.path.split(path)[0], exist_ok=True)
+    f = open(path, "w")
+    f.write(data)
+    f.close()
+    return {}
+
+def read_data(process_dir, variables):
+    
+    """This task reads string data from a file
+
+    Attributes:
+        process_dir -- the generated working directory of the calling process
+        variables -- a dictionary containing key-value pairs passed from Camunda
+    Camunda Parameters:
+        ["path"] -- The relative path where the file to be read is located
+        ["data"] -- The data string to be written to the filesystem
+    """
+    
+    path = os.path.join(process_dir, variables["path"]["value"])
+    return {"data": {"value": open(path,"r").read()}}

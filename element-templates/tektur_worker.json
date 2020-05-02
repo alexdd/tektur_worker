@@ -1942,5 +1942,175 @@
 				}
 			}
 		]
+	},
+	{
+		"name": "write-data",
+		"id": "tektur.write-data",
+		"appliesTo": [
+			"bpmn:ServiceTask"
+		],
+		"entriesVisible": {
+			"multiInstance-loopCardinality": true,
+			"parameterType-text": true,
+			"parameterType": true,
+			"parameterType-script": true,
+			"parameterType-map": true,
+			"_all": false,
+			"outputs": true,
+			"parameterType-list": true,
+			"parameterName": true,
+			"inputs": true,
+			"multiInstance-elementVariable": true,
+			"multiInstance-collection": true
+		},
+		"properties": [
+			{
+				"binding": {
+					"name": "camunda:type",
+					"type": "property"
+				},
+				"type": "Hidden",
+				"value": "external"
+			},
+			{
+				"binding": {
+					"name": "camunda:topic",
+					"type": "property"
+				},
+				"label": "Topic",
+				"type": "String",
+				"description": "Task implementation to be executed",
+				"value": "write_data"
+			},
+			{
+				"binding": {
+					"name": "camunda:asyncBefore",
+					"type": "property"
+				},
+				"type": "Hidden",
+				"value": true
+			},
+			{
+				"binding": {
+					"name": "camunda:asyncAfter",
+					"type": "property"
+				},
+				"type": "Hidden",
+				"value": true
+			},
+			{
+				"label": "Path",
+				"type": "String",
+				"value": "",
+				"editable": true,
+				"binding": {
+					"type": "camunda:inputParameter",
+					"name": "path"
+				},
+				"description": "The path to the target file.",
+				"constraints": {
+					
+				}
+			},
+			{
+				"label": "Data",
+				"type": "String",
+				"value": "",
+				"editable": true,
+				"binding": {
+					"type": "camunda:inputParameter",
+					"name": "data"
+				},
+				"description": "The data string.",
+				"constraints": {
+					
+				}
+			}
+		]
+	},
+	{
+		"name": "read-data",
+		"id": "tektur.read-data",
+		"appliesTo": [
+			"bpmn:ServiceTask"
+		],
+		"entriesVisible": {
+			"multiInstance-loopCardinality": true,
+			"parameterType-text": true,
+			"parameterType": true,
+			"parameterType-script": true,
+			"parameterType-map": true,
+			"_all": false,
+			"outputs": true,
+			"parameterType-list": true,
+			"parameterName": true,
+			"inputs": true,
+			"multiInstance-elementVariable": true,
+			"multiInstance-collection": true
+		},
+		"properties": [
+			{
+				"binding": {
+					"name": "camunda:type",
+					"type": "property"
+				},
+				"type": "Hidden",
+				"value": "external"
+			},
+			{
+				"binding": {
+					"name": "camunda:topic",
+					"type": "property"
+				},
+				"label": "Topic",
+				"type": "String",
+				"description": "Task implementation to be executed",
+				"value": "read_data"
+			},
+			{
+				"binding": {
+					"name": "camunda:asyncBefore",
+					"type": "property"
+				},
+				"type": "Hidden",
+				"value": true
+			},
+			{
+				"binding": {
+					"name": "camunda:asyncAfter",
+					"type": "property"
+				},
+				"type": "Hidden",
+				"value": true
+			},
+			{
+				"label": "Path",
+				"type": "String",
+				"value": "",
+				"editable": true,
+				"binding": {
+					"type": "camunda:inputParameter",
+					"name": "path"
+				},
+				"description": "Path to the source file.",
+				"constraints": {
+					
+				}
+			},
+			{
+				"label": "data",
+				"type": "String",
+				"value": "",
+				"editable": false,
+				"binding": {
+					"type": "camunda:outputParameter",
+					"source": "${ data }"
+				},
+				"description": "Output variable containing the string data that was read.",
+				"constraints": {
+					
+				}
+			}
+		]
 	}
 ]

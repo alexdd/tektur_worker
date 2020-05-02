@@ -71,7 +71,7 @@ def batch_compare_xml(process_dir, variables):
     
     """This task compares an xml file in the one folder with the corresponding 
        xml file in the other folder and return a list of filenames of the 
-       files that differ.
+       files that differ - only looking at the files in the source-folder.
 
     Attributes:
         process_dir -- the generated working directory of the calling process
