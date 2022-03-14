@@ -1,5 +1,5 @@
 #    Tektur Worker - Camuda external task executor for ETL processes 
-#    Copyright (C) 2020  Alex Duesel, tekturcms@gmail.com
+#    Copyright (C) 2020 - 2025  Alex Duesel, tekturcms@gmail.com
 
 #    This program is free software: you can redistribute it and/or modify
 #    it under the terms of the GNU General Public License as published by
@@ -16,6 +16,7 @@
 
 import os, boto3, re, json
 from errors import TaskError
+from settings import AWS_CREDS
 
 def s3_get(process_dir, variables):
     
@@ -34,7 +35,7 @@ def s3_get(process_dir, variables):
     if not filename:
         raise TaskError("AWS Error! Filename required")
     
-    s3 = boto3.client('s3')
+    s3 = boto3.client('s3',**AWS_CREDS)
     path = os.path.join(process_dir, filename)
     key = variables["key"]["value"]
     bucket = variables["bucket"]["value"]
@@ -60,7 +61,7 @@ def s3_list(process_dir, variables):
                        filenames of the objects to be retrieved       
     """
     
-    s3 = boto3.resource('s3')
+    s3 = boto3.resource('s3',**AWS_CREDS)
     bucket = s3.Bucket(variables["bucket"]["value"])
     regex = re.compile(variables["key"]["value"])
     try:
@@ -82,7 +83,7 @@ def s3_put(process_dir, variables):
         ["key"] -- The name of the target object on S3
     """
     
-    s3 = boto3.client('s3')
+    s3 = boto3.client('s3',**AWS_CREDS)
     path = os.path.join(process_dir, variables["filename"]["value"])
     key = variables["key"]["value"]
     if variables["location"]["value"] == 'process': 

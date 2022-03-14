@@ -1,5 +1,5 @@
 #    Tektur Worker - Camuda external task executor for ETL processes 
-#    Copyright (C) 2020  Alex Duesel, tekturcms@gmail.com
+#    Copyright (C) 2020 - 2025  Alex Duesel, tekturcms@gmail.com
 
 #    This program is free software: you can redistribute it and/or modify
 #    it under the terms of the GNU General Public License as published by
@@ -163,6 +163,7 @@ def batch_tidy_html(process_dir, variables):
             "-o",
             os.path.join(output_folder,html_file.replace(".html",'.xml'))
         ] 
+        print(args)
         p = Popen(args, stdin=PIPE, stdout=PIPE, stderr=PIPE)
         output, err = p.communicate()
         if p.returncode == -1:

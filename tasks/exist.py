@@ -1,5 +1,5 @@
 #    Tektur Worker - Camuda external task executor for ETL processes 
-#    Copyright (C) 2020  Alex Duesel, tekturcms@gmail.com
+#    Copyright (C) 2020 - 2025  Alex Duesel, tekturcms@gmail.com
 
 #    This program is free software: you can redistribute it and/or modify
 #    it under the terms of the GNU General Public License as published by
@@ -16,7 +16,7 @@
 
 import os
 from subprocess import Popen, PIPE
-from settings import EXIST_DB_CLIENT
+from settings import EXIST_DB_CLIENT, EXIST_DB_SERVER_PORT
 from errors import TaskError
 
 
@@ -28,7 +28,7 @@ def exist_load(process_dir, variables):
         process_dir -- the generated working directory of the calling process
         variables -- a dictionary containing key-value pairs passed from Camunda
     Camunda Parameters:
-        ["inputFolder"] -- The name of the folder containing the input files
+        ["inputFolder"] -- The name of the folder containing the input files in the process dir
         ["dbPath"] -- The path on the exist-db where the files will be stored
     """
     
@@ -36,15 +36,17 @@ def exist_load(process_dir, variables):
     db_path = variables["dbPath"]["value"]
     args = [
         EXIST_DB_CLIENT,
+        "-ouri=xmldb:exist://"+EXIST_DB_SERVER_PORT+"/exist/xmlrpc/"
         "-c",
         db_path,
         "-p",
         input_folder
         ]    
+    print(args)
     p = Popen(args, stdin=PIPE, stdout=PIPE, stderr=PIPE)
     output, err = p.communicate()
     if p.returncode == -1:
-        raise TaskError("exist-db load error!", "Input folder: "+input_folder+" XSLT: "+db_path)
+        raise TaskError("exist-db load error!", "Input folder: "+input_folder+" DB Path: "+db_path)
     elif len(err) > 0:
         raise TaskError("exist-db load error!", err.decode())
     return {}

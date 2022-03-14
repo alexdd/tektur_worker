@@ -1,5 +1,5 @@
 #    Tektur Worker - Camuda external task executor for ETL processes 
-#    Copyright (C) 2020  Alex Duesel, tekturcms@gmail.com
+#    Copyright (C) 2020 - 2025  Alex Duesel, tekturcms@gmail.com
 
 #    This program is free software: you can redistribute it and/or modify
 #    it under the terms of the GNU General Public License as published by
@@ -59,6 +59,7 @@ class URLAdapter:
         return self.runner.response.status_code
   
     def response_data(self):
+        print(self.runner.response.text)
         return self.runner.response.text
   
 def http_request(process_dir, variables):

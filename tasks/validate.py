@@ -1,5 +1,5 @@
 #    Tektur Worker - Camuda external task executor for ETL processes 
-#    Copyright (C) 2020  Alex Duesel, tekturcms@gmail.com
+#    Copyright (C) 2020 - 2025  Alex Duesel, tekturcms@gmail.com
 
 #    This program is free software: you can redistribute it and/or modify
 #    it under the terms of the GNU General Public License as published by
@@ -15,13 +15,14 @@
 #    along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
 import os, tempfile
-from subprocess import Popen, PIPE
-from settings import SAXON_JAR, JAVA_CMD, SCHEMATRON_DIR
+from subprocess import Popen, PIPE, call
+from settings import SAXON_JAR, JAVA_CMD, SCHEMATRON_DIR, XMLLINT_CMD
 from errors import TaskError
 
 def batch_validate_xml(process_dir, variables):
     
-    """This task runs a Saxon XQuery on a list of XML files just in order to validate against a DTD; Calling Saxon via CLI.
+    """This task runs a Saxon XQuery on a list of XML files just in order to validate against a DTD; 
+       Calling Saxon via CLI.
 
     Attributes:
         process_dir -- the generated working directory of the calling process
@@ -83,7 +84,7 @@ def call_schematron_stylesheets(source, target, xslt):
     
 def generate_schematron_xslt(process_dir, variables):
     
-    """This task creats the Schematron XSLT file from a Schematron rules file.
+    """This task creates the Schematron XSLT file from a Schematron rules file.
 
     Attributes:
         process_dir -- the generated working directory of the calling process
@@ -126,4 +127,74 @@ def generate_schematron_xslt(process_dir, variables):
         os.unlink(schematron_file)
     return {}
     
+def convert_relaxng(process_dir, variables):
+    
+    """This task creates a RelaxNG XML representation out of a RelaxNG compact form
+        also, extracts schematron rules
+
+    Attributes:
+        process_dir -- the generated working directory of the calling process
+        variables -- a dictionary containing key-value pairs passed from Camunda
+    Camunda Parameters:
+        ["rnc-file"] -- The name of the file containing the RelaxNG compact form,
+        ["rng-file"] -- The name of the resulting RNG XML file
+        ["messages-xml"] -- The name of the messages file that the Schematron rules should report
+        ["schematron-rules"] -- The name of the resulting Schematron rules file
+    """  
+    
+    pass
+
+def batch_validate_xsd(process_dir, variables):
+
+    """This task batch validates against a RNG schema
+
+    Attributes:
+        process_dir -- the generated working directory of the calling process
+        variables -- a dictionary containing key-value pairs passed from Camunda
+    Camunda Parameters:
+        ["log-file"] -- The name of the log file containing the validation errors if any
+        ["xsd-schema"] -- The name of the XSD schema file,
+        ["input-folder"] -- The name of the folder containing the input XML files to validate,
+        ["valid"] -- Output bool variable containing the result of the validation process
+    """  
+    
+    log_file = os.path.join(process_dir, variables["log-file"]["value"])
+    input_folder = os.path.join(process_dir, variables["input-folder"]["value"])
+    xsd_schema = os.path.join(process_dir, variables["xsd-schema"]["value"])
+    has_errors = False
+    for xml_file in os.listdir(input_folder):
+        if os.path.isdir(xml_file):
+            continue
+        args = [
+            XMLLINT_CMD,
+            "-noout",
+            "-schema",
+            xsd_schema,
+            os.path.join(input_folder,xml_file)
+        ]
+        
+        try:
+            call(args,stderr=log_file)
+        except:
+            raise TaskError("Cannot validate file with XSD!", "XML: "+xml_file)  
+        if not "validates" in open(log_file,"r").read():
+            has_errors = True           
+    return {"valid": {"value": has_errors}}
+    
+    
+def batch_validate_schematron(process_dir, variables):
+
+    """This task batch validates against Schematron rules
+
+    Attributes:
+        process_dir -- the generated working directory of the calling process
+        variables -- a dictionary containing key-value pairs passed from Camunda
+    Camunda Parameters:
+        ["log-file"] -- The name of the log file containing the validation errors if any
+        ["schematron-rules"] -- The name of the Schematron rules file,
+        ["input-folder"] -- The name of the folder containing the input XML files to validate,
+        ["valid"] -- Output bool variable containing the result of the validation process
+    """  
+    
+    pass
     
